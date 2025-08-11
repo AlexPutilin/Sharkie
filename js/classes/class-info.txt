@@ -1,0 +1,47 @@
+In JavaScript erzeugt der constructor automatisch die Instanzvariablen, sobald du this.xyz = ... schreibst.
+Das heißt, die Properties existieren erst, wenn der Konstruktor ausgeführt wird, z. B.:
+
+class Actor {
+    constructor(x, y, img, life) {
+        this.posX = x;
+        this.posY = y;
+        this.img = img;
+        this.life = life;
+    }
+}
+
+Beim Erstellen einer Instanz:
+
+const player = new Actor(100, 200, 'player.png', 100);
+console.log(player.posX); // 100
+
+Es ist nicht nötig, die Properties vorher zu deklarieren, weil sie sowieso im Konstruktor definiert werden.
+
+
+
+
+
+Warum kein let oder const bei Klasseneigenschaften?
+
+let und const sind für Variablen in Funktionen oder Blöcken gedacht.
+Innerhalb einer Klasse definierst du Eigenschaften (Properties) des Objekts, nicht lokale Variablen.
+
+Beispiel:
+class Actor {
+    life = 100; // Eigenschaft der Instanz, gehört zu "this"
+}
+
+
+Wenn du let schreiben würdest:
+class Actor {
+    let life = 100; // Syntaxfehler
+}
+
+Das geht nicht, weil Klassenfelder nicht wie normale Variablen behandelt werden.
+Sie gehören immer zum Objekt (this.life).
+
+
+Wann sollte man nun Variablen vorher deklarieren?
+- Wenn du Standardwerte setzen willst.
+- Wenn du Lesbarkeit verbessern willst (alle Properties auf einen Blick).
+- Wenn du TypeScript oder Linter nutzt, die vorschreiben, dass alle Properties vorab definiert sein müssen.
