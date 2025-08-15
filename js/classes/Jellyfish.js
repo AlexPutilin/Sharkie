@@ -1,5 +1,6 @@
 class Jellyfish extends Actor {
-    // constructor(x, y, img, life) {
-    //     super(x, y, img, life);
-    // }
+    constructor() {
+        super(800, 200);
+        this.loadImg('../assets/sprites/enemy/jellyfish/swim/jellyfish_swim_1.png');
+    }
 }
