@@ -4,6 +4,8 @@ class Actor {
     posY;
     width;
     height;
+    spriteCache = {};
+    img = new Image();
 
     constructor(x=0, y=0, width=100, height=100) {
         this.posX = x
@@ -13,8 +15,15 @@ class Actor {
     }
 
     loadImg(path) {
-        this.img = new Image();
         this.img.src = path;
+    }
+
+    loadSpriteCache(arr) {
+        arr.forEach(path => {
+            let img = new Image();
+            img.src = path;
+            this.spriteCache[path] = img;
+        });
     }
 
     move() {
