@@ -4,6 +4,7 @@ class Actor {
     posY;
     width;
     height;
+    speed;
     spriteCache = {};
     img = new Image();
 
@@ -26,7 +27,23 @@ class Actor {
         });
     }
 
-    move() {
+    moveLeft() {
+        this.posX -= this.speed;
+    }
+
+    moveRight() {
+        this.posX += this.speed;
+    }
+
+    moveUp() {
+        this.posY -= this.speed;
+    }
+
+    moveDown() {
+        this.posY += this.speed;
+    }
+
+    animate() {
         
     }
 

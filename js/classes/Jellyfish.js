@@ -11,12 +11,15 @@ class Jellyfish extends Actor {
         super(800, 200);
         // this.loadImg('../assets/sprites/enemy/jellyfish/swim/jellyfish_swim_1.png');
         this.loadSpriteCache(this.swimSprites);
-        this.move();
+        this.animate();
+        this.speed = 1.5 + Math.random() * 1.5;
     }
 
-    move() {
+    animate() {
         setInterval(() => {
-            this.posX -= 5;
+            this.moveLeft();
+        }, 1000 / 60);
+        setInterval(() => {
             let path = this.swimSprites[this.currentSpriteImg];
             this.img = this.spriteCache[path];
             this.currentSpriteImg++;

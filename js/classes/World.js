@@ -2,6 +2,7 @@ class World {
 
     ctx;
     canvas;
+    controller;
     backgrounds = [
         new Background('../assets/imgs/background/background_water_1.png'), 
         new Background('../assets/imgs/background/background_5.png'), 
@@ -10,10 +11,16 @@ class World {
     character = new PlayerCharacter();
     jellyfish = new Jellyfish();
 
-    constructor(canvas) {
+    constructor(canvas, controller) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        this.controller = controller;
+        this.setWorld();
         this.draw();
+    }
+
+    setWorld() {
+        this.character.world = this;
     }
 
     draw() {

@@ -1,5 +1,6 @@
 class PlayerCharacter extends Actor {
 
+    world;
     idleSprites = [
         '../assets/sprites/sharkie/idle/sharkie_idle_1.png',
         '../assets/sprites/sharkie/idle/sharkie_idle_2.png',
@@ -20,14 +21,58 @@ class PlayerCharacter extends Actor {
         '../assets/sprites/sharkie/idle/sharkie_idle_17.png',
         '../assets/sprites/sharkie/idle/sharkie_idle_18.png',
     ];
+    swimSprites = [
+        '../assets/sprites/sharkie/swim/sharkie_swim_1.png',
+        '../assets/sprites/sharkie/swim/sharkie_swim_2.png',
+        '../assets/sprites/sharkie/swim/sharkie_swim_3.png',
+        '../assets/sprites/sharkie/swim/sharkie_swim_4.png',
+        '../assets/sprites/sharkie/swim/sharkie_swim_5.png',
+        '../assets/sprites/sharkie/swim/sharkie_swim_6.png',
+    ];
     currentSpriteImg = 0;
 
     constructor() {
         super(0, 200, 200, 200);
         // this.loadImg('../assets/sprites/sharkie/idle/sharkie_idle_1.png');
-        this.loadSpriteCache(this.idleSprites);
-        this.idleAnim();
+        this.speed = 5;
+        this.loadSpriteCache(this.swimSprites);
+        // this.idleAnim();
+        this.animate();
     }
+
+    animate() {
+        setInterval(() => {
+            if(this.world.controller.kRight) {
+                this.moveRight();
+            }
+            if(this.world.controller.kLeft) {
+                this.moveLeft();
+            }
+            if(this.world.controller.kUp) {
+                this.moveUp();
+            }
+            if(this.world.controller.kDown) {
+                this.moveDown();
+            }
+        }, 1000 / 60); 
+
+        setInterval(() => {
+            if(this.world.controller.kRight || this.world.controller.kLeft) {
+                let path = this.swimSprites[this.currentSpriteImg];
+                this.img = this.spriteCache[path];
+                this.currentSpriteImg++;
+                this.currentSpriteImg = (this.currentSpriteImg + this.swimSprites.length) % this.swimSprites.length;
+            }
+            if(this.world.controller.kUp || this.world.controller.kDown) {
+                let path = this.swimSprites[this.currentSpriteImg];
+                this.img = this.spriteCache[path];
+                this.currentSpriteImg++;
+                this.currentSpriteImg = (this.currentSpriteImg + this.swimSprites.length) % this.swimSprites.length;
+            }
+        }, 100);
+    }
+
+
 
     idleAnim() {
         setInterval(() => {
@@ -36,6 +81,10 @@ class PlayerCharacter extends Actor {
             this.currentSpriteImg++;
             this.currentSpriteImg = (this.currentSpriteImg + this.idleSprites.length) % this.idleSprites.length;
         }, 100);
+    }
+
+    swimAnim() {
+
     }
 
     attackBubbleBeam() {
