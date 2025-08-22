@@ -5,6 +5,10 @@ class World {
     cameraX = 0;
     controller;
     backgrounds = [
+        new Background('../assets/imgs/background/background_layer0_2.png', -1080), 
+        new Background('../assets/imgs/background/background_layer1_2.png', -1080), 
+        new Background('../assets/imgs/background/background_layer2_2.png', -1080),
+        new Background('../assets/imgs/background/background_layer3_2.png', -1080),
         new Background('../assets/imgs/background/background_layer0_1.png', 0), 
         new Background('../assets/imgs/background/background_layer1_1.png', 0), 
         new Background('../assets/imgs/background/background_layer2_1.png', 0),
