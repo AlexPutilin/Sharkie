@@ -30,6 +30,7 @@ class PlayerCharacter extends Actor {
         '../assets/sprites/sharkie/swim/sharkie_swim_6.png',
     ];
     currentSpriteImg = 0;
+    flippedImg = false;
 
     constructor() {
         super(0, 200, 200, 200);
@@ -44,9 +45,11 @@ class PlayerCharacter extends Actor {
         setInterval(() => {
             if(this.world.controller.kRight) {
                 this.moveRight();
+                this.flippedImg = false;
             }
             if(this.world.controller.kLeft) {
                 this.moveLeft();
+                this.flippedImg = true;
             }
             if(this.world.controller.kUp) {
                 this.moveUp();
@@ -54,6 +57,7 @@ class PlayerCharacter extends Actor {
             if(this.world.controller.kDown) {
                 this.moveDown();
             }
+            this.world.cameraX = -this.posX;
         }, 1000 / 60); 
 
         setInterval(() => {
