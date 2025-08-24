@@ -4,32 +4,10 @@ class World {
     canvas;
     cameraX = 0;
     controller;
-    backgrounds = [
-        new Background('../assets/imgs/background/background_layer0_2.png', -1080), 
-        new Background('../assets/imgs/background/background_layer1_2.png', -1080), 
-        new Background('../assets/imgs/background/background_layer2_2.png', -1080),
-        new Background('../assets/imgs/background/background_layer3_2.png', -1080),
-        new Background('../assets/imgs/background/background_layer0_1.png', 0), 
-        new Background('../assets/imgs/background/background_layer1_1.png', 0), 
-        new Background('../assets/imgs/background/background_layer2_1.png', 0),
-        new Background('../assets/imgs/background/background_layer3_1.png', 0),
-        new Background('../assets/imgs/background/background_layer0_2.png', 1080), 
-        new Background('../assets/imgs/background/background_layer1_2.png', 1080), 
-        new Background('../assets/imgs/background/background_layer2_2.png', 1080),
-        new Background('../assets/imgs/background/background_layer3_2.png', 1080),
-        new Background('../assets/imgs/background/background_lightflare_1.png', 1080),
-        new Background('../assets/imgs/background/background_layer0_1.png', 2160), 
-        new Background('../assets/imgs/background/background_layer1_1.png', 2160), 
-        new Background('../assets/imgs/background/background_layer2_1.png', 2160),
-        new Background('../assets/imgs/background/background_layer3_1.png', 2160),
-        new Background('../assets/imgs/background/background_lightflare_2.png', 2160),
-        new Background('../assets/imgs/background/background_layer0_2.png', 3240), 
-        new Background('../assets/imgs/background/background_layer1_2.png', 3240), 
-        new Background('../assets/imgs/background/background_layer2_2.png', 3240),
-        new Background('../assets/imgs/background/background_layer3_2.png', 3240),
-    ];
+    backgrounds = level1.backgrounds;
+    enemies = level1.enemies;
     character = new PlayerCharacter();
-    jellyfish = new Jellyfish();
+
 
     constructor(canvas, controller) {
         this.ctx = canvas.getContext('2d');
@@ -49,8 +27,10 @@ class World {
         this.backgrounds.forEach(background => {
             this.addToWorld(background);
         });
+        this.enemies.forEach(enemie => {
+            this.addToWorld(enemie);
+        });
         this.addToWorld(this.character);
-        this.addToWorld(this.jellyfish);
 
         this.ctx.translate(-this.cameraX, 0);
 

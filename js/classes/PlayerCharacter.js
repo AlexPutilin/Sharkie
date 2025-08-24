@@ -33,7 +33,7 @@ class PlayerCharacter extends Actor {
     flippedImg = false;
 
     constructor() {
-        super(800, 200, 400, 400);
+        super(0, 200, 200, 200);
         // this.loadImg('../assets/sprites/sharkie/idle/sharkie_idle_1.png');
         this.speed = 5;
         this.loadSpriteCache(this.swimSprites);

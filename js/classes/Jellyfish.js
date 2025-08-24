@@ -7,8 +7,8 @@ class Jellyfish extends Actor {
     ]
     currentSpriteImg = 0;
 
-    constructor() {
-        super(800, 200);
+    constructor(x, y) {
+        super(x, y);
         // this.loadImg('../assets/sprites/enemy/jellyfish/swim/jellyfish_swim_1.png');
         this.loadSpriteCache(this.swimSprites);
         this.animate();
