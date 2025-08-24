@@ -6,6 +6,7 @@ class Actor {
     height;
     speed;
     spriteCache = {};
+    currentSpriteImg = 0;
     img = new Image();
 
     constructor(x=0, y=0, width=100, height=100) {
@@ -27,24 +28,30 @@ class Actor {
         });
     }
 
-    moveLeft() {
-        this.posX -= this.speed;
+    move(direction) {
+        switch (direction) {
+            case "right":
+                this.posX += this.speed;
+                break;
+            case "left":
+                this.posX -= this.speed;
+                break
+            case "up":
+                this.posY -= this.speed;
+                break
+            case "down":
+                this.posY += this.speed;
+                break
+            default:
+                break;
+        }
     }
 
-    moveRight() {
-        this.posX += this.speed;
-    }
-
-    moveUp() {
-        this.posY -= this.speed;
-    }
-
-    moveDown() {
-        this.posY += this.speed;
-    }
-
-    animate() {
-        
+    playAnimation(sprites) {
+        let path = sprites[this.currentSpriteImg];
+        this.img = this.spriteCache[path];
+        this.currentSpriteImg++;
+        this.currentSpriteImg = (this.currentSpriteImg + sprites.length) % sprites.length;
     }
 
     takeDmg() {

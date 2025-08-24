@@ -29,7 +29,6 @@ class PlayerCharacter extends Actor {
         '../assets/sprites/sharkie/swim/sharkie_swim_5.png',
         '../assets/sprites/sharkie/swim/sharkie_swim_6.png',
     ];
-    currentSpriteImg = 0;
     flippedImg = false;
 
     constructor() {
@@ -43,35 +42,29 @@ class PlayerCharacter extends Actor {
 
     animate() {
         setInterval(() => {
-            if(this.world.controller.kRight) {
-                this.moveRight();
+            if(this.world.controller.kRight && this.posX < 3340) {
+                this.move("right");
                 this.flippedImg = false;
             }
-            if(this.world.controller.kLeft) {
-                this.moveLeft();
+            if(this.world.controller.kLeft && this.posX > -980) {
+                this.move("left");
                 this.flippedImg = true;
             }
             if(this.world.controller.kUp) {
-                this.moveUp();
+                this.move("up");
             }
             if(this.world.controller.kDown) {
-                this.moveDown();
+                this.move("down");
             }
-            this.world.cameraX = -this.posX;
+            this.world.cameraX = -this.posX + 100;
         }, 1000 / 60); 
 
         setInterval(() => {
             if(this.world.controller.kRight || this.world.controller.kLeft) {
-                let path = this.swimSprites[this.currentSpriteImg];
-                this.img = this.spriteCache[path];
-                this.currentSpriteImg++;
-                this.currentSpriteImg = (this.currentSpriteImg + this.swimSprites.length) % this.swimSprites.length;
+                this.playAnimation(this.swimSprites);
             }
             if(this.world.controller.kUp || this.world.controller.kDown) {
-                let path = this.swimSprites[this.currentSpriteImg];
-                this.img = this.spriteCache[path];
-                this.currentSpriteImg++;
-                this.currentSpriteImg = (this.currentSpriteImg + this.swimSprites.length) % this.swimSprites.length;
+                this.playAnimation(this.swimSprites);
             }
         }, 100);
     }
