@@ -39,37 +39,18 @@ class World {
         });
     }
 
-    addToWorld(obj) {
-        if (obj.flippedImg) {
-            this.flipImg(obj);
+    addToWorld(object) {
+        if (object.flippedImg) {
+            this.ctx.save();
+            this.ctx.translate(object.width, 0);
+            this.ctx.scale(-1, 1);
+            object.posX = object.posX * -1;
         }
-        this.ctx.drawImage(obj.img, obj.posX, obj.posY, obj.width, obj.height);
-        this.drawRec(obj.posX + obj.collisionBox.x,obj.posY + obj.collisionBox.y, obj.collisionBox.w, obj.collisionBox.h)
-        if (obj.flippedImg) {
-            this.flipImgBack(obj);
+        this.ctx.drawImage(object.img, object.posX, object.posY, object.width, object.height);
+        if (object.flippedImg) {
+            this.ctx.restore();
+            object.posX = object.posX * -1;
         }
-    }
-
-    flipImg(obj) {
-        this.ctx.save();
-        this.ctx.translate(obj.width, 0);
-        this.ctx.scale(-1, 1);
-        obj.posX = obj.posX * -1;
-    }
-
-    flipImgBack(obj) {
-        this.ctx.restore();
-        obj.posX = obj.posX * -1;
-    }
-
-
-    // DEBUG:
-    drawRec(x, y, w, h) {
-        this.ctx.beginPath();
-        this.ctx.lineWidth = 4;
-        this.ctx.strokeStyle = "red";
-        this.ctx.rect(x, y, w, h);
-        this.ctx.stroke();
     }
 }
 

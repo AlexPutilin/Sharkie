@@ -4,7 +4,6 @@ class Actor {
     posY;
     width;
     height;
-    collisionBox = {x: 0, y: 0, w: 0, h: 0};
     speed;
     spriteCache = {};
     currentSpriteImg = 0;
@@ -29,13 +28,6 @@ class Actor {
         });
     }
 
-    playAnimation(sprites) {
-        let path = sprites[this.currentSpriteImg];
-        this.img = this.spriteCache[path];
-        this.currentSpriteImg++;
-        this.currentSpriteImg = (this.currentSpriteImg + sprites.length) % sprites.length;
-    }
-
     move(direction) {
         switch (direction) {
             case "right":
@@ -53,6 +45,13 @@ class Actor {
             default:
                 break;
         }
+    }
+
+    playAnimation(sprites) {
+        let path = sprites[this.currentSpriteImg];
+        this.img = this.spriteCache[path];
+        this.currentSpriteImg++;
+        this.currentSpriteImg = (this.currentSpriteImg + sprites.length) % sprites.length;
     }
 
     takeDmg() {
