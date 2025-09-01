@@ -33,22 +33,22 @@ class PlayerCharacter extends Actor {
 
     constructor() {
         super(0, 200, 200, 200);
-        // this.loadImg('../assets/sprites/sharkie/idle/sharkie_idle_1.png');
         this.speed = 5;
+        this.collisionBox = {x: 40 , y: 80, w: 120, h: 80};
+        // this.loadSpriteCache(this.idleSprites);
         this.loadSpriteCache(this.swimSprites);
-        // this.idleAnim();
         this.animate();
     }
 
     animate() {
         setInterval(() => {
             if(this.world.controller.kRight && this.posX < 3340) {
-                this.move("right");
                 this.flippedImg = false;
+                this.move("right");
             }
             if(this.world.controller.kLeft && this.posX > -980) {
-                this.move("left");
                 this.flippedImg = true;
+                this.move("left");
             }
             if(this.world.controller.kUp) {
                 this.move("up");
@@ -65,30 +65,11 @@ class PlayerCharacter extends Actor {
             }
             if(this.world.controller.kUp || this.world.controller.kDown) {
                 this.playAnimation(this.swimSprites);
+            } else {
+                // this.playAnimation(this.idleSprites);
             }
         }, 100);
     }
 
 
-
-    idleAnim() {
-        setInterval(() => {
-            let path = this.idleSprites[this.currentSpriteImg];
-            this.img = this.spriteCache[path];
-            this.currentSpriteImg++;
-            this.currentSpriteImg = (this.currentSpriteImg + this.idleSprites.length) % this.idleSprites.length;
-        }, 100);
-    }
-
-    swimAnim() {
-
-    }
-
-    attackBubbleBeam() {
-        
-    }
-
-    attackFinSlash() {
-
-    }
 }
