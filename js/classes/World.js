@@ -14,11 +14,22 @@ class World {
         this.canvas = canvas;
         this.controller = controller;
         this.setWorld();
+        this.checkCollisions();
         this.draw();
     }
 
     setWorld() {
         this.character.world = this;
+    }
+
+    checkCollisions() {
+        setInterval(() => {
+            this.enemies.forEach(enemy => {
+                if(this.character.isColliding(enemy)) {
+                    this.character.takeDmg();                    
+                }
+            });
+        }, 100);
     }
 
     draw() {
@@ -31,9 +42,7 @@ class World {
             this.addToWorld(enemie);
         });
         this.addToWorld(this.character);
-
         this.ctx.translate(-this.cameraX, 0);
-
         requestAnimationFrame(() => {
             this.draw();
         });

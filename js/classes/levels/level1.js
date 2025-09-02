@@ -1,0 +1,35 @@
+const level1 = new Level(
+    [
+        new Background('assets/imgs/background/background_layer0_2.png', -1080), 
+        new Background('assets/imgs/background/background_layer1_2.png', -1080), 
+        new Background('assets/imgs/background/background_layer2_2.png', -1080),
+        new Background('assets/imgs/background/background_layer3_2.png', -1080),
+        new Background('assets/imgs/background/background_layer0_1.png', 0), 
+        new Background('assets/imgs/background/background_layer1_1.png', 0), 
+        new Background('assets/imgs/background/background_layer2_1.png', 0),
+        new Background('assets/imgs/background/background_layer3_1.png', 0),
+        new Background('assets/imgs/background/background_layer0_2.png', 1080), 
+        new Background('assets/imgs/background/background_layer1_2.png', 1080), 
+        new Background('assets/imgs/background/background_layer2_2.png', 1080),
+        new Background('assets/imgs/background/background_layer3_2.png', 1080),
+        new Background('assets/imgs/background/background_lightflare_1.png', 1080),
+        new Background('assets/imgs/background/background_layer0_1.png', 2160), 
+        new Background('assets/imgs/background/background_layer1_1.png', 2160), 
+        new Background('assets/imgs/background/background_layer2_1.png', 2160),
+        new Background('assets/imgs/background/background_layer3_1.png', 2160),
+        new Background('assets/imgs/background/background_lightflare_2.png', 2160),
+        new Background('assets/imgs/background/background_layer0_2.png', 3240), 
+        new Background('assets/imgs/background/background_layer1_2.png', 3240), 
+        new Background('assets/imgs/background/background_layer2_2.png', 3240),
+        new Background('assets/imgs/background/background_layer3_2.png', 3240),
+    ],
+    [
+        new Jellyfish(1100, 100),
+        new Jellyfish(1300, 400),
+        new Jellyfish(2200, 300),
+        new Jellyfish(2300, 200),
+        new Jellyfish(3300, 500),
+        new Jellyfish(3500, 350),
+    ]
+);
+

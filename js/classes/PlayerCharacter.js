@@ -2,41 +2,61 @@ class PlayerCharacter extends Actor {
 
     world;
     idleSprites = [
-        '../assets/sprites/sharkie/idle/sharkie_idle_1.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_2.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_3.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_4.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_5.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_6.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_7.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_8.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_9.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_10.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_11.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_12.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_13.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_14.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_15.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_16.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_17.png',
-        '../assets/sprites/sharkie/idle/sharkie_idle_18.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_1.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_2.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_3.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_4.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_5.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_6.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_7.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_8.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_9.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_10.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_11.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_12.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_13.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_14.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_15.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_16.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_17.png',
+        'assets/sprites/sharkie/idle/sharkie_idle_18.png',
     ];
     swimSprites = [
-        '../assets/sprites/sharkie/swim/sharkie_swim_1.png',
-        '../assets/sprites/sharkie/swim/sharkie_swim_2.png',
-        '../assets/sprites/sharkie/swim/sharkie_swim_3.png',
-        '../assets/sprites/sharkie/swim/sharkie_swim_4.png',
-        '../assets/sprites/sharkie/swim/sharkie_swim_5.png',
-        '../assets/sprites/sharkie/swim/sharkie_swim_6.png',
+        'assets/sprites/sharkie/swim/sharkie_swim_1.png',
+        'assets/sprites/sharkie/swim/sharkie_swim_2.png',
+        'assets/sprites/sharkie/swim/sharkie_swim_3.png',
+        'assets/sprites/sharkie/swim/sharkie_swim_4.png',
+        'assets/sprites/sharkie/swim/sharkie_swim_5.png',
+        'assets/sprites/sharkie/swim/sharkie_swim_6.png',
     ];
+    deadShockedSprites = [
+        'assets/sprites/sharkie/dead/shocked/sharkie_dead_shocked_1.png',
+        'assets/sprites/sharkie/dead/shocked/sharkie_dead_shocked_2.png',
+        'assets/sprites/sharkie/dead/shocked/sharkie_dead_shocked_3.png',
+        'assets/sprites/sharkie/dead/shocked/sharkie_dead_shocked_4.png',
+        'assets/sprites/sharkie/dead/shocked/sharkie_dead_shocked_5.png',
+        'assets/sprites/sharkie/dead/shocked/sharkie_dead_shocked_6.png',
+        'assets/sprites/sharkie/dead/shocked/sharkie_dead_shocked_7.png',
+        'assets/sprites/sharkie/dead/shocked/sharkie_dead_shocked_8.png',
+        'assets/sprites/sharkie/dead/shocked/sharkie_dead_shocked_9.png',
+        'assets/sprites/sharkie/dead/shocked/sharkie_dead_shocked_10.png',
+    ];
+    hurtShockedSprites = [
+        'assets/sprites/sharkie/hurt/shocked/sharkie_hurt_shocked_1.png',
+        'assets/sprites/sharkie/hurt/shocked/sharkie_hurt_shocked_2.png',
+        'assets/sprites/sharkie/hurt/shocked/sharkie_hurt_shocked_3.png',
+    ];
+
     flippedImg = false;
 
     constructor() {
         super(0, 200, 200, 200);
         this.speed = 5;
         this.collisionBox = {x: 40 , y: 80, w: 120, h: 80};
-        // this.loadSpriteCache(this.idleSprites);
+        this.loadSpriteCache(this.idleSprites);
         this.loadSpriteCache(this.swimSprites);
+        this.loadSpriteCache(this.deadShockedSprites);
+        this.loadSpriteCache(this.hurtShockedSprites);
         this.animate();
     }
 
@@ -60,13 +80,16 @@ class PlayerCharacter extends Actor {
         }, 1000 / 60); 
 
         setInterval(() => {
-            if(this.world.controller.kRight || this.world.controller.kLeft) {
+            if(this.isDeath()) {
+                this.playAnimation(this.deadShockedSprites);
+            }
+            else if(this.world.controller.kRight || this.world.controller.kLeft) {
                 this.playAnimation(this.swimSprites);
             }
-            if(this.world.controller.kUp || this.world.controller.kDown) {
+            else if(this.world.controller.kUp || this.world.controller.kDown) {
                 this.playAnimation(this.swimSprites);
             } else {
-                // this.playAnimation(this.idleSprites);
+                this.playAnimation(this.idleSprites);
             }
         }, 100);
     }
