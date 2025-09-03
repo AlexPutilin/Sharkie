@@ -4,6 +4,7 @@ class Entity extends GameObject {
     spriteCache = {};
     currentSprites;
     currentSpriteIndex = 0;
+    isHit = false;
 
     constructor(x=0, y=0, width=100, height=100) {
         super();
@@ -22,14 +23,10 @@ class Entity extends GameObject {
     }
 
     playAnimation(sprites) {
-        if(this.currentSprites !== sprites) {
-            this.currentSprites = sprites;
-            this.currentSpriteIndex = 0;
-        }
+        this.currentSpriteIndex = (this.currentSpriteIndex + sprites.length) % sprites.length;
         let path = sprites[this.currentSpriteIndex];
         this.img = this.spriteCache[path];
         this.currentSpriteIndex++;
-        this.currentSpriteIndex = (this.currentSpriteIndex + sprites.length) % sprites.length;
     }
 
     move(direction) {
@@ -58,9 +55,13 @@ class Entity extends GameObject {
             (this.posY + this.collisionBox.y) < (obj.posY + this.collisionBox.y) + obj.collisionBox.h
     }
 
-    takeDmg() {
+    takeDmg() {        
+        if(this.isHit) return;
         this.life = Math.max(0, this.life - 25);
-        console.log("life: ", this.life);
+        this.isHit = true;
+        setTimeout(() => {
+            this.isHit = false;
+        }, 1000)
     }
     
     isDeath() {

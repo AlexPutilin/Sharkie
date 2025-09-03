@@ -78,7 +78,10 @@ class Sharkie extends Entity {
         }, 1000 / 60); 
 
         setInterval(() => {
-            if(this.isDeath()) {
+            if(this.isHit) {
+                this.playAnimation(this.hurtShockedSprites);
+            }
+            else if(this.isDeath()) {
                 this.playAnimation(this.deadShockedSprites);
             }
             else if(this.world.controller.kRight || this.world.controller.kLeft) {
