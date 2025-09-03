@@ -1,0 +1,3 @@
+class Whale extends Entity {
+    
+}

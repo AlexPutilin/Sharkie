@@ -1,4 +1,4 @@
-class Jellyfish extends Actor {
+class Jellyfish extends Entity {
     swimSprites = [
         'assets/sprites/enemy/jellyfish/swim/jellyfish_swim_1.png',
         'assets/sprites/enemy/jellyfish/swim/jellyfish_swim_2.png',

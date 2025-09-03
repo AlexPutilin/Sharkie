@@ -1,5 +1,4 @@
-class PlayerCharacter extends Actor {
-
+class Sharkie extends Entity {
     world;
     idleSprites = [
         'assets/sprites/sharkie/idle/sharkie_idle_1.png',
@@ -46,7 +45,6 @@ class PlayerCharacter extends Actor {
         'assets/sprites/sharkie/hurt/shocked/sharkie_hurt_shocked_2.png',
         'assets/sprites/sharkie/hurt/shocked/sharkie_hurt_shocked_3.png',
     ];
-
     flippedImg = false;
 
     constructor() {

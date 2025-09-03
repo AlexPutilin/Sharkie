@@ -1,17 +1,12 @@
-class Actor {
-    posX;
-    posY;
-    width;
-    height;
-    collisionBox = {x: 0, y: 0, w: 0, h: 0};
+class Entity extends GameObject {
     speed;
     life = 100;
     spriteCache = {};
-    currentSpriteImg = 0;
     currentSprites;
-    img = new Image();
+    currentSpriteIndex = 0;
 
     constructor(x=0, y=0, width=100, height=100) {
+        super();
         this.posX = x
         this.posY = y
         this.width = width;
@@ -29,12 +24,12 @@ class Actor {
     playAnimation(sprites) {
         if(this.currentSprites !== sprites) {
             this.currentSprites = sprites;
-            this.currentSpriteImg = 0;
+            this.currentSpriteIndex = 0;
         }
-        let path = sprites[this.currentSpriteImg];
+        let path = sprites[this.currentSpriteIndex];
         this.img = this.spriteCache[path];
-        this.currentSpriteImg++;
-        this.currentSpriteImg = (this.currentSpriteImg + sprites.length) % sprites.length;
+        this.currentSpriteIndex++;
+        this.currentSpriteIndex = (this.currentSpriteIndex + sprites.length) % sprites.length;
     }
 
     move(direction) {

@@ -1,12 +1,11 @@
 let canvas;
 let controller;
 let world;
-// const player = new PlayerCharacter();
 
 
 document.addEventListener("DOMContentLoaded", (event) => {
     canvas = document.getElementById('canvas');
-    controller = new Controller();
+    controller = new Input();
     world = new World(canvas, controller);
 })
 
