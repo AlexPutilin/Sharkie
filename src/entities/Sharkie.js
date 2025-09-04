@@ -49,14 +49,16 @@ class Sharkie extends Entity {
     ];
     flippedImg = false;
 
-    constructor() {
+    constructor(world) {
         super(0, 200, 200, 200);
+        this.world = world
         this.speed = 2;
         this.collisionBox = {x: 40 , y: 80, w: 120, h: 80};
         this.loadSpriteCache(this.idleSprites);
         this.loadSpriteCache(this.swimSprites);
         this.loadSpriteCache(this.deadShockedSprites);
         this.loadSpriteCache(this.hurtShockedSprites);
+        this.animationLoop();
     }
 
     animationLoop(timestamp = 0) {

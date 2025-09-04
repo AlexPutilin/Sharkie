@@ -1,26 +1,18 @@
 class World {
-
     ctx;
     canvas;
     cameraX = 0;
     controller;
     backgrounds = level1.backgrounds;
     enemies = level1.enemies;
-    player = new Sharkie();
-
 
     constructor(canvas, controller) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.controller = controller;
-        this.setWorld();
-        this.player.animationLoop();
+        this.player = new Sharkie(this);
         this.checkCollisions();
         this.draw();
-    }
-
-    setWorld() {
-        this.player.world = this;
     }
 
     checkCollisions() {
