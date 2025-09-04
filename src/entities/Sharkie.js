@@ -1,5 +1,7 @@
 class Sharkie extends Entity {
     world;
+    lastAnimationTime = 0;
+    animationInterval = 100;
     idleSprites = [
         'assets/sprites/sharkie/idle/sharkie_idle_1.png',
         'assets/sprites/sharkie/idle/sharkie_idle_2.png',
@@ -49,51 +51,55 @@ class Sharkie extends Entity {
 
     constructor() {
         super(0, 200, 200, 200);
-        this.speed = 5;
+        this.speed = 2;
         this.collisionBox = {x: 40 , y: 80, w: 120, h: 80};
         this.loadSpriteCache(this.idleSprites);
         this.loadSpriteCache(this.swimSprites);
         this.loadSpriteCache(this.deadShockedSprites);
         this.loadSpriteCache(this.hurtShockedSprites);
-        this.animate();
     }
 
-    animate() {
-        setInterval(() => {
-            if(this.world.controller.kRight && this.posX < 3340) {
-                this.flippedImg = false;
-                this.move("right");
-            }
-            if(this.world.controller.kLeft && this.posX > -980) {
-                this.flippedImg = true;
-                this.move("left");
-            }
-            if(this.world.controller.kUp) {
-                this.move("up");
-            }
-            if(this.world.controller.kDown) {
-                this.move("down");
-            }
-            this.world.cameraX = -this.posX + 100;
-        }, 1000 / 60); 
-
-        setInterval(() => {
-            if(this.isHit) {
-                this.playAnimation(this.hurtShockedSprites);
-            }
-            else if(this.isDeath()) {
-                this.playAnimation(this.deadShockedSprites);
-            }
-            else if(this.world.controller.kRight || this.world.controller.kLeft) {
-                this.playAnimation(this.swimSprites);
-            }
-            else if(this.world.controller.kUp || this.world.controller.kDown) {
-                this.playAnimation(this.swimSprites);
-            } else {
-                this.playAnimation(this.idleSprites);
-            }
-        }, 100);
+    animationLoop(timestamp = 0) {
+        this.handleMovement();
+        if(timestamp - this.lastAnimationTime > this.animationInterval) {
+            this.handleAnimation();
+            this.lastAnimationTime = timestamp;
+        }
+        requestAnimationFrame((t) => this.animationLoop(t));
     }
 
+    handleMovement() {
+        if(this.world.controller.kRight && this.posX < 3340) {
+            this.flippedImg = false;
+            this.move("right");
+        }
+        if(this.world.controller.kLeft && this.posX > -980) {
+            this.flippedImg = true;
+            this.move("left");
+        }
+        if(this.world.controller.kUp) {
+            this.move("up");
+        }
+        if(this.world.controller.kDown) {
+            this.move("down");
+        }
+        this.world.cameraX = -this.posX + 100;
+    }
 
+    handleAnimation() {
+        if(this.isHit) {
+            this.playAnimation(this.hurtShockedSprites);
+        }
+        else if(this.isDeath()) {
+            this.playAnimation(this.deadShockedSprites);
+        }
+        else if(this.world.controller.kRight || this.world.controller.kLeft) {
+            this.playAnimation(this.swimSprites);
+        }
+        else if(this.world.controller.kUp || this.world.controller.kDown) {
+            this.playAnimation(this.swimSprites);
+        } else {
+            this.playAnimation(this.idleSprites);
+        }
+    }
 }

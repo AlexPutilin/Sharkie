@@ -14,6 +14,7 @@ class World {
         this.canvas = canvas;
         this.controller = controller;
         this.setWorld();
+        this.player.animationLoop();
         this.checkCollisions();
         this.draw();
     }
@@ -43,9 +44,7 @@ class World {
         });
         this.addToWorld(this.player);
         this.ctx.translate(-this.cameraX, 0);
-        requestAnimationFrame(() => {
-            this.draw();
-        });
+        requestAnimationFrame(() => this.draw());
     }
 
     addToWorld(obj) {
