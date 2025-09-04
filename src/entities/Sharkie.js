@@ -48,6 +48,7 @@ class Sharkie extends Entity {
         'assets/sprites/sharkie/hurt/shocked/sharkie_hurt_shocked_3.png',
     ];
     flippedImg = false;
+    isHit = false;
 
     constructor(world) {
         super(0, 200, 200, 200);
@@ -103,5 +104,15 @@ class Sharkie extends Entity {
         } else {
             this.playAnimation(this.idleSprites);
         }
+    }
+
+    getHit() {
+        if(this.isHit) return;
+        this.isHit = true;
+        this.takeDmg(20);
+        this.world.healtbar.reduceStatusbar();
+        setTimeout(() => {
+            this.isHit = false;
+        }, 1000)
     }
 }

@@ -24,12 +24,12 @@ const level1 = new Level(
         new Background(3240, 0, 1080, 720, 'assets/imgs/background/background_layer3_2.png'),
     ],
     [
-        new Jellyfish(1100, 100),
-        new Jellyfish(1300, 400),
-        new Jellyfish(2200, 300),
-        new Jellyfish(2300, 200),
-        new Jellyfish(3300, 500),
-        new Jellyfish(3500, 350),
+        new Jellyfish(1100, 100, 100, 100),
+        new Jellyfish(1300, 400, 100, 100),
+        new Jellyfish(2200, 300, 100, 100),
+        new Jellyfish(2300, 200, 100, 100),
+        new Jellyfish(3300, 500, 100, 100),
+        new Jellyfish(3500, 350, 100, 100),
     ]
 );
 

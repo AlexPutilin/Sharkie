@@ -6,8 +6,8 @@ class Jellyfish extends Entity {
         'assets/sprites/enemy/jellyfish/swim/jellyfish_swim_4.png',
     ]
 
-    constructor(x, y) {
-        super(x, y);
+    constructor(...args) {
+        super(...args);
         this.collisionBox = {x: 0 , y: 0, w: 100, h: 100};
         this.loadSpriteCache(this.swimSprites);
         this.animate();

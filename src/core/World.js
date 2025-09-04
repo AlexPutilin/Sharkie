@@ -5,6 +5,7 @@ class World {
     controller;
     backgrounds = level1.backgrounds;
     enemies = level1.enemies;
+    healtbar = new Healtbar();
 
     constructor(canvas, controller) {
         this.ctx = canvas.getContext('2d');
@@ -12,14 +13,14 @@ class World {
         this.controller = controller;
         this.player = new Sharkie(this);
         this.checkCollisions();
-        this.draw();
+        this.draw();    
     }
 
     checkCollisions() {
         setInterval(() => {
             this.enemies.forEach(enemy => {
                 if(this.player.isColliding(enemy)) {
-                    this.player.takeDmg();                    
+                    this.player.getHit();                  
                 }
             });
         }, 100);
@@ -28,6 +29,7 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.cameraX, 0);
+        
         this.backgrounds.forEach(background => {
             this.addToWorld(background);
         });
@@ -35,6 +37,9 @@ class World {
             this.addToWorld(enemie);
         });
         this.addToWorld(this.player);
+        this.ctx.translate(-this.cameraX, 0);
+        this.addToWorld(this.healtbar);
+        this.ctx.translate(this.cameraX, 0);
         this.ctx.translate(-this.cameraX, 0);
         requestAnimationFrame(() => this.draw());
     }

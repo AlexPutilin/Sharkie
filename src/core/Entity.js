@@ -1,17 +1,14 @@
 class Entity extends GameObject {
+
     speed;
     life = 100;
     spriteCache = {};
     currentSprites;
     currentSpriteIndex = 0;
-    isHit = false;
 
-    constructor(x=0, y=0, width=100, height=100) {
-        super();
-        this.posX = x
-        this.posY = y
-        this.width = width;
-        this.height = height;
+
+    constructor(...args) {
+        super(...args);
     }
 
     loadSpriteCache(arr) {
@@ -55,13 +52,8 @@ class Entity extends GameObject {
             (this.posY + this.collisionBox.y) < (obj.posY + this.collisionBox.y) + obj.collisionBox.h
     }
 
-    takeDmg() {        
-        if(this.isHit) return;
-        this.life = Math.max(0, this.life - 25);
-        this.isHit = true;
-        setTimeout(() => {
-            this.isHit = false;
-        }, 1000)
+    takeDmg(dmg) {        
+        this.life = Math.max(0, this.life - dmg);
     }
     
     isDeath() {
