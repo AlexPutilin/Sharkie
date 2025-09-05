@@ -30,6 +30,31 @@ class Sharkie extends Entity {
         'assets/sprites/sharkie/swim/sharkie_swim_5.png',
         'assets/sprites/sharkie/swim/sharkie_swim_6.png',
     ];
+    attackSprites = [
+        'assets/sprites/sharkie/attack/bubble/sharkie_attack_bubble_1.png',
+        'assets/sprites/sharkie/attack/bubble/sharkie_attack_bubble_2.png',
+        'assets/sprites/sharkie/attack/bubble/sharkie_attack_bubble_3.png',
+        'assets/sprites/sharkie/attack/bubble/sharkie_attack_bubble_4.png',
+        'assets/sprites/sharkie/attack/bubble/sharkie_attack_bubble_5.png',
+        'assets/sprites/sharkie/attack/bubble/sharkie_attack_bubble_6.png',
+        'assets/sprites/sharkie/attack/bubble/sharkie_attack_bubble_7.png',
+        'assets/sprites/sharkie/attack/bubble/sharkie_attack_bubble_8.png',
+    ];
+    attackPoisonedSprites = [
+        'assets/sprites/sharkie/attack/bubble_poisoned/sharkie_attack_bubble_poison_1.png',
+        'assets/sprites/sharkie/attack/bubble_poisoned/sharkie_attack_bubble_poison_2.png',
+        'assets/sprites/sharkie/attack/bubble_poisoned/sharkie_attack_bubble_poison_3.png',
+        'assets/sprites/sharkie/attack/bubble_poisoned/sharkie_attack_bubble_poison_4.png',
+        'assets/sprites/sharkie/attack/bubble_poisoned/sharkie_attack_bubble_poison_5.png',
+        'assets/sprites/sharkie/attack/bubble_poisoned/sharkie_attack_bubble_poison_6.png',
+        'assets/sprites/sharkie/attack/bubble_poisoned/sharkie_attack_bubble_poison_7.png',
+        'assets/sprites/sharkie/attack/bubble_poisoned/sharkie_attack_bubble_poison_8.png',
+    ];
+    hurtShockedSprites = [
+        'assets/sprites/sharkie/hurt/shocked/sharkie_hurt_shocked_1.png',
+        'assets/sprites/sharkie/hurt/shocked/sharkie_hurt_shocked_2.png',
+        'assets/sprites/sharkie/hurt/shocked/sharkie_hurt_shocked_3.png',
+    ];
     deadShockedSprites = [
         'assets/sprites/sharkie/dead/shocked/sharkie_dead_shocked_1.png',
         'assets/sprites/sharkie/dead/shocked/sharkie_dead_shocked_2.png',
@@ -42,12 +67,8 @@ class Sharkie extends Entity {
         'assets/sprites/sharkie/dead/shocked/sharkie_dead_shocked_9.png',
         'assets/sprites/sharkie/dead/shocked/sharkie_dead_shocked_10.png',
     ];
-    hurtShockedSprites = [
-        'assets/sprites/sharkie/hurt/shocked/sharkie_hurt_shocked_1.png',
-        'assets/sprites/sharkie/hurt/shocked/sharkie_hurt_shocked_2.png',
-        'assets/sprites/sharkie/hurt/shocked/sharkie_hurt_shocked_3.png',
-    ];
     flippedImg = false;
+    isAttacking = false;
     isHit = false;
 
     constructor(world) {
@@ -57,13 +78,15 @@ class Sharkie extends Entity {
         this.collisionBox = {x: 40 , y: 80, w: 120, h: 80};
         this.loadSpriteCache(this.idleSprites);
         this.loadSpriteCache(this.swimSprites);
-        this.loadSpriteCache(this.deadShockedSprites);
+        this.loadSpriteCache(this.attackSprites);
+        this.loadSpriteCache(this.attackPoisonedSprites);
         this.loadSpriteCache(this.hurtShockedSprites);
+        this.loadSpriteCache(this.deadShockedSprites);
         this.animationLoop();
     }
 
     animationLoop(timestamp = 0) {
-        this.handleMovement();
+        this.handleInputs();
         if(timestamp - this.lastAnimationTime > this.animationInterval) {
             this.handleAnimation();
             this.lastAnimationTime = timestamp;
@@ -71,35 +94,44 @@ class Sharkie extends Entity {
         requestAnimationFrame((t) => this.animationLoop(t));
     }
 
-    handleMovement() {
-        if(this.world.controller.kRight && this.posX < 3340) {
+    handleInputs() {
+        if (this.world.controller.kSpacePressedOnce && !this.isAttacking) {
+            this.world.controller.kSpacePressedOnce = false;
+            this.isAttacking = true;
+        }
+        if (this.world.controller.kRight && this.posX < 3340) {
             this.flippedImg = false;
             this.move("right");
         }
-        if(this.world.controller.kLeft && this.posX > -980) {
+        if (this.world.controller.kLeft && this.posX > -980) {
             this.flippedImg = true;
             this.move("left");
         }
-        if(this.world.controller.kUp) {
+        if (this.world.controller.kUp) {
             this.move("up");
         }
-        if(this.world.controller.kDown) {
+        if (this.world.controller.kDown) {
             this.move("down");
         }
         this.world.cameraX = -this.posX + 100;
     }
 
     handleAnimation() {
-        if(this.isHit) {
+        if (this.isHit) {
             this.playAnimation(this.hurtShockedSprites);
+        } else if (this.isAttacking) {
+            this.playAnimation(this.attackSprites, false, () => {
+                this.isAttacking = false; 
+                this.spawnProjectile();
+            });
         }
-        else if(this.isDeath()) {
-            this.playAnimation(this.deadShockedSprites);
+        else if (this.isDeath()) {
+            this.playAnimation(this.deadShockedSprites, false);
         }
-        else if(this.world.controller.kRight || this.world.controller.kLeft) {
+        else if (this.world.controller.kRight || this.world.controller.kLeft) {
             this.playAnimation(this.swimSprites);
         }
-        else if(this.world.controller.kUp || this.world.controller.kDown) {
+        else if (this.world.controller.kUp || this.world.controller.kDown) {
             this.playAnimation(this.swimSprites);
         } else {
             this.playAnimation(this.idleSprites);
@@ -107,12 +139,17 @@ class Sharkie extends Entity {
     }
 
     getHit() {
-        if(this.isHit) return;
+        if (this.isHit) return;
         this.isHit = true;
         this.takeDmg(20);
-        this.world.healtbar.reduceStatusbar();
+        this.world.healthbar.reduceStatusbar();
         setTimeout(() => {
             this.isHit = false;
         }, 1000)
+    }
+
+    spawnProjectile() {
+        let projectile = new Projectile(this.posX + 150, this.posY + 100);
+        this.world.projectiles.push(projectile);
     }
 }

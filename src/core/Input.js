@@ -4,4 +4,5 @@ class Input {
     kRight;
     kLeft;
     kSpace;
+    kSpacePressedOnce;
 }

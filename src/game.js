@@ -19,7 +19,10 @@ window.addEventListener('keydown', (e) => {
     if (e.key === "ArrowUp") controller.kUp = true;
     if (e.key === "ArrowRight") controller.kRight = true;
     if (e.key === "ArrowDown") controller.kDown = true;
-    if (e.key === " ") controller.kSpace = true;
+    if (e.key === " " && !controller.kSpace) {
+        controller.kSpace = true;
+        controller.kSpacePressedOnce = true;
+    }
 });
 
 
