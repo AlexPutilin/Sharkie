@@ -19,11 +19,33 @@ class Entity extends GameObject {
         });
     }
 
-    playAnimation(sprites) {
-        this.currentSpriteIndex = (this.currentSpriteIndex + sprites.length) % sprites.length;
+    // playAnimation(sprites) {
+    //     this.currentSpriteIndex = (this.currentSpriteIndex + sprites.length) % sprites.length;
+    //     let path = sprites[this.currentSpriteIndex];
+    //     this.img = this.spriteCache[path];
+    //     this.currentSpriteIndex++;
+    // }
+
+    playAnimation(sprites, loop = true, onEnd = null) {
+        this.resetAnimationIndex(sprites);
         let path = sprites[this.currentSpriteIndex];
         this.img = this.spriteCache[path];
-        this.currentSpriteIndex++;
+        if (loop) {
+            this.currentSpriteIndex = (this.currentSpriteIndex + 1) % this.currentSprites.length;
+        } else {
+            if (this.currentSpriteIndex < this.currentSprites.length - 1) {
+            this.currentSpriteIndex++;
+            } else {
+            if (onEnd) onEnd();
+            }
+        }
+    }
+
+    resetAnimationIndex(sprites) {
+        if (this.currentSprites !== sprites) {
+            this.currentSprites = sprites;
+            this.currentSpriteIndex = 0;
+        }
     }
 
     move(direction) {
