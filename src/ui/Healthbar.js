@@ -1,4 +1,4 @@
-class Healtbar extends GameObject {
+class Healthbar extends Statusbar {
     statusBarImgs = [
         'assets/imgs/bars/life/bar_life_100.png',
         'assets/imgs/bars/life/bar_life_80.png',
@@ -7,15 +7,10 @@ class Healtbar extends GameObject {
         'assets/imgs/bars/life/bar_life_20.png',
         'assets/imgs/bars/life/bar_life_0.png',
     ];
-    statusBarIndex = 0;
 
     constructor() {
-        super(20, 0, 300, 75);
+        super(20, 0, 220, 60);
         this.loadImg(this.statusBarImgs[this.statusBarIndex]);
     }
-
-    reduceStatusbar() {
-        this.statusBarIndex = Math.min(this.statusBarImgs.length-1, this.statusBarIndex + 1);
-        this.loadImg(this.statusBarImgs[this.statusBarIndex])
-    }
 }
+
