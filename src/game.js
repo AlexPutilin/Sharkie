@@ -31,5 +31,5 @@ window.addEventListener('keyup', (e) => {
     if (e.key === "ArrowUp") controller.kUp = false;
     if (e.key === "ArrowRight") controller.kRight = false;
     if (e.key === "ArrowDown") controller.kDown = false;
-    if (e.key === " ") controller.kSpace = false;
+    if (e.key === " ") {controller.kSpace = false;}
 });

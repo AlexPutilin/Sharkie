@@ -68,10 +68,12 @@ class Entity extends GameObject {
     }
 
     isColliding(obj) {
-        return (this.posX + this.collisionBox.x) + this.collisionBox.w > (obj.posX + obj.collisionBox.x) && 
-            (this.posY + this.collisionBox.y) + this.collisionBox.h > (obj.posY + obj.collisionBox.y) && 
-            (this.posX + this.collisionBox.x) < (obj.posX + obj.collisionBox.x) && 
-            (this.posY + this.collisionBox.y) < (obj.posY + this.collisionBox.y) + obj.collisionBox.h
+        return (
+            this.posX + this.collisionBox.x < obj.posX + obj.collisionBox.x + obj.collisionBox.w &&
+            this.posX + this.collisionBox.x + this.collisionBox.w > obj.posX + obj.collisionBox.x &&
+            this.posY + this.collisionBox.y < obj.posY + obj.collisionBox.y + obj.collisionBox.h &&
+            this.posY + this.collisionBox.y + this.collisionBox.h > obj.posY + obj.collisionBox.y
+        );
     }
 
     takeDmg(dmg) {        

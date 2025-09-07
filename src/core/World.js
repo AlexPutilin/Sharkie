@@ -8,7 +8,7 @@ class World {
     healthbar = new Healthbar();
     poisonbar = new Poisonbar();
     coinbar = new Coinbar();
-    projectiles = [] ;
+    projectiles = [];
 
     constructor(canvas, controller) {
         this.ctx = canvas.getContext('2d');
@@ -27,9 +27,22 @@ class World {
 
     checkCollisions() {
         this.enemies.forEach(enemy => {
-            if(this.player.isColliding(enemy)) {
+            if (this.player.isColliding(enemy)) {
                 this.player.getHit();                  
             }
+        });
+        this.projectiles.forEach((projectile, pIndex) => {
+            this.enemies.forEach((enemy, eIndex) => {
+                if (projectile.isColliding(enemy)) {
+                    enemy.takeDmg(100);
+                    this.projectiles.splice(pIndex, 1);
+
+                    // TEST:
+                    if (enemy.isDeath()) {
+                        this.enemies.splice(eIndex, 1);
+                    }
+                }
+            });
         });
     }
 
