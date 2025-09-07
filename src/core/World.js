@@ -30,7 +30,8 @@ class World {
     checkPlayerCollisions() {
         this.enemies.forEach(enemy => {
             if (this.player.isColliding(enemy)) {
-                this.player.getHit();                  
+                this.player.getHit();
+                enemy.onCollision();
             }
         });
     }
