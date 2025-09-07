@@ -70,12 +70,13 @@ class Sharkie extends Entity {
     flippedImg = false;
     isAttacking = false;
     isHit = false;
+    isProjectileSpawned = false;
 
     constructor(world) {
         super(0, 200, 200, 200);
         this.world = world
         this.speed = 2;
-        this.collisionBox = {x: 40 , y: 80, w: 120, h: 80};
+        this.collisionBox = {x: 40 , y: 100, w: 120, h: 60};
         this.loadSpriteCache(this.idleSprites);
         this.loadSpriteCache(this.swimSprites);
         this.loadSpriteCache(this.attackSprites);
@@ -149,7 +150,13 @@ class Sharkie extends Entity {
     }
 
     spawnProjectile() {
-        let projectile = new Projectile(this.posX + 150, this.posY + 100);
-        this.world.projectiles.push(projectile);
+        if (!this.isProjectileSpawned) {
+            this.isProjectileSpawned = true;
+            let projectile = new Projectile(this.posX + 150, this.posY + 100);
+            this.world.projectiles.push(projectile);
+            setTimeout(() => {
+                this.isProjectileSpawned = false;
+            }, 500);
+        }
     }
 }
