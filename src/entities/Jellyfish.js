@@ -13,7 +13,14 @@ class Jellyfish extends Entity {
         'assets/sprites/enemy/jellyfish/shock/jellyfish_shock_3.png',
         'assets/sprites/enemy/jellyfish/shock/jellyfish_shock_4.png',
     ];
+    deathSprites = [
+        'assets/sprites/enemy/jellyfish/dead/jellyfish_dead_1.png',
+        'assets/sprites/enemy/jellyfish/dead/jellyfish_dead_2.png',
+        'assets/sprites/enemy/jellyfish/dead/jellyfish_dead_3.png',
+        'assets/sprites/enemy/jellyfish/dead/jellyfish_dead_4.png',
+    ];
     isColliding = false;
+    destroyEnemy = false;
 
     constructor(...args) {
         super(...args);
@@ -21,6 +28,7 @@ class Jellyfish extends Entity {
         this.speed = 0.5 + Math.random() * 1;
         this.loadSpriteCache(this.swimSprites);
         this.loadSpriteCache(this.hitSprites);
+        this.loadSpriteCache(this.deathSprites);
         this.animationLoop();
     }
 
@@ -40,6 +48,10 @@ class Jellyfish extends Entity {
     handleAnimation() {
         if (this.isColliding) {
             this.playAnimation(this.hitSprites);
+        } else if (this.isDeath()) {
+            this.playAnimation(this.deathSprites, false, () => {
+                this.destroyEnemy = true;
+            });
         } else {
             this.playAnimation(this.swimSprites);
         }

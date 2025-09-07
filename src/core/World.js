@@ -49,7 +49,7 @@ class World {
 
     checkDestroyEnemy() {
         this.enemies.forEach((enemy, index) => {
-            if (enemy.isDeath()) {
+            if (enemy.destroyEnemy) {
                 this.enemies.splice(index, 1);
             }
         });
