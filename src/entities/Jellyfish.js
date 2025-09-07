@@ -61,7 +61,7 @@ class Jellyfish extends Entity {
         if (this.isColliding) return;
         this.isColliding = true;
         setTimeout(() => {
-            this.isHit = false;
+            this.isColliding = false;
         }, 1000)
     }
 }
