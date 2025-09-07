@@ -121,7 +121,7 @@ class Sharkie extends Entity {
             this.playAnimation(this.hurtShockedSprites);
         } else if (this.isAttacking) {
             this.playAnimation(this.attackSprites, false, () => {
-                this.isAttacking = false; 
+                this.isAttacking = false;
                 this.spawnProjectile();
             });
         }
