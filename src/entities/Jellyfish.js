@@ -13,7 +13,7 @@ class Jellyfish extends Entity {
         'assets/sprites/enemy/jellyfish/shock/jellyfish_shock_3.png',
         'assets/sprites/enemy/jellyfish/shock/jellyfish_shock_4.png',
     ];
-    isHit = false;
+    isColliding = false;
 
     constructor(...args) {
         super(...args);
@@ -38,7 +38,7 @@ class Jellyfish extends Entity {
     }
 
     handleAnimation() {
-        if (this.isHit) {
+        if (this.isColliding) {
             this.playAnimation(this.hitSprites);
         } else {
             this.playAnimation(this.swimSprites);
@@ -46,8 +46,8 @@ class Jellyfish extends Entity {
     }
 
     onCollision() {
-        if (this.isHit) return;
-        this.isHit = true;
+        if (this.isColliding) return;
+        this.isColliding = true;
         setTimeout(() => {
             this.isHit = false;
         }, 1000)
