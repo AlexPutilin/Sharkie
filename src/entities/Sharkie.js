@@ -152,7 +152,8 @@ class Sharkie extends Entity {
     spawnProjectile() {
         if (!this.isProjectileSpawned) {
             this.isProjectileSpawned = true;
-            let projectile = new Projectile(this.posX + 150, this.posY + 100);
+            let offsetX = this.flippedImg ? 0 : 150 ;
+            let projectile = new Projectile(this.posX + offsetX, this.posY + 100, this.flippedImg);
             this.world.projectiles.push(projectile);
             setTimeout(() => {
                 this.isProjectileSpawned = false;
