@@ -21,32 +21,38 @@ class World {
 
     gameLoop() {
         setInterval(() => {
-            this.checkCollisions();
+            this.checkPlayerCollisions();
+            this.checkProjectileCollisions();
+            this.checkDestroyEnemy();
         }, 100);
     }
 
-    checkCollisions() {
+    checkPlayerCollisions() {
         this.enemies.forEach(enemy => {
             if (this.player.isColliding(enemy)) {
                 this.player.getHit();                  
             }
         });
-        this.projectiles.forEach((projectile, pIndex) => {
-            this.enemies.forEach((enemy, eIndex) => {
+    }
+  
+    checkProjectileCollisions() {
+        this.projectiles.forEach((projectile, index) => {
+            this.enemies.forEach((enemy) => {
                 if (projectile.isColliding(enemy)) {
                     enemy.takeDmg(100);
-                    this.projectiles.splice(pIndex, 1);
-
-                    // TEST:
-                    if (enemy.isDeath()) {
-                        this.enemies.splice(eIndex, 1);
-                    }
+                    this.projectiles.splice(index, 1);
                 }
             });
         });
     }
 
-
+    checkDestroyEnemy() {
+        this.enemies.forEach((enemy, index) => {
+            if (enemy.isDeath()) {
+                this.enemies.splice(index, 1);
+            }
+        });
+    }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
