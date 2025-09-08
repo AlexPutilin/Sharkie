@@ -108,10 +108,10 @@ class Sharkie extends Entity {
             this.flippedImg = true;
             this.move("left");
         }
-        if (this.world.controller.kUp) {
+        if (this.world.controller.kUp && this.posY > -100) {
             this.move("up");
         }
-        if (this.world.controller.kDown) {
+        if (this.world.controller.kDown && this.posY < 570) {
             this.move("down");
         }
         this.world.cameraX = -this.posX + 100;
