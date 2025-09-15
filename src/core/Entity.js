@@ -1,5 +1,4 @@
 class Entity extends GameObject {
-
     speed;
     life = 100;
     spriteCache = {};

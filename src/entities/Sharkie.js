@@ -97,22 +97,22 @@ class Sharkie extends Entity {
     }
 
     handleInputs() {
-        if (this.world.controller.kSpacePressedOnce && !this.isAttacking) {
+        if (this.world.controller.kSpacePressedOnce && !this.isDeath() && !this.isAttacking) {
             this.world.controller.kSpacePressedOnce = false;
             this.isAttacking = true;
         }
-        if (this.world.controller.kRight && this.posX < 3340) {
+        if (this.world.controller.kRight && !this.isDeath() && this.posX < 3340) {
             this.flippedImg = false;
             this.move("right");
         }
-        if (this.world.controller.kLeft && this.posX > -980) {
+        if (this.world.controller.kLeft && !this.isDeath() && this.posX > -980) {
             this.flippedImg = true;
             this.move("left");
         }
-        if (this.world.controller.kUp && this.posY > -100) {
+        if (this.world.controller.kUp && !this.isDeath() && this.posY > -100) {
             this.move("up");
         }
-        if (this.world.controller.kDown && this.posY < 570) {
+        if (this.world.controller.kDown && !this.isDeath() && this.posY < 570) {
             this.move("down");
         }
         this.world.cameraX = -this.posX + 100;
