@@ -1,6 +1,6 @@
 class Pickable extends Entity {
     lastAnimationTime = 0;
-    animationInterval = 200;
+    animationInterval = 150;
     animSprite = [];
 
     constructor(x, y, sprites) {

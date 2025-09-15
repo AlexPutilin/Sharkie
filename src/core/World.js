@@ -47,6 +47,7 @@ class World {
             if (this.player.isColliding(poison)) {
                 this.poisons.splice(index, 1);
                 this.poisonbar.reduceStatusbar();
+                this.player.calcPoisonAmount();
             }
         });
     }

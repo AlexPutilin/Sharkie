@@ -71,7 +71,7 @@ class Sharkie extends Entity {
     isAttacking = false;
     isHit = false;
     isProjectileSpawned = false;
-    poison = [];
+    poisonBuff = false;
 
     constructor(world) {
         super(0, 200, 200, 200);
@@ -122,7 +122,7 @@ class Sharkie extends Entity {
         if (this.isHit) {
             this.playAnimation(this.hurtShockedSprites);
         } else if (this.isAttacking) {
-            this.playAnimation(this.attackSprites, false, () => {
+            this.playAnimation(this.poisonBuff ? this.attackPoisonedSprites : this.attackSprites, false, () => {
                 this.isAttacking = false;
                 this.spawnProjectile();
             });
@@ -150,11 +150,25 @@ class Sharkie extends Entity {
         }, 1000)
     }
 
+    calcPoisonAmount() {
+        if (this.world.poisonbar.statusBarIndex > 0) {
+            this.poisonBuff = true;
+        } else {
+            this.poisonBuff = false;
+        }
+    }
+
+    reducePoisonbar() {
+        this.world.poisonbar.increaseStatusbar();
+        this.calcPoisonAmount();
+    }
+
     spawnProjectile() {
         if (!this.isProjectileSpawned) {
             this.isProjectileSpawned = true;
             let offsetX = this.flippedImg ? 0 : 150 ;
-            let projectile = new Projectile(this.posX + offsetX, this.posY + 100, this.flippedImg);
+            let projectile = new Projectile(this.posX + offsetX, this.posY + 100, this.flippedImg, this.poisonBuff);
+            if (this.poisonBuff) this.reducePoisonbar();
             this.world.projectiles.push(projectile);
             setTimeout(() => {
                 this.isProjectileSpawned = false;
