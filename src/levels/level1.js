@@ -30,6 +30,17 @@ const level1 = new Level(
         new Jellyfish(2300, 200, 100, 100),
         new Jellyfish(3300, 500, 100, 100),
         new Jellyfish(3500, 350, 100, 100),
+    ],
+    [
+        new Coin(500, 500),
+        new Coin(800, 200),
+        new Coin(1000, 400),
+        new Coin(2000, 300),
+        new Coin(2500, 600),
+    ],
+    [
+        new Poison(300, 500),
+        new Poison(600, 500),
     ]
 );
 

@@ -71,6 +71,7 @@ class Sharkie extends Entity {
     isAttacking = false;
     isHit = false;
     isProjectileSpawned = false;
+    poison = [];
 
     constructor(world) {
         super(0, 200, 200, 200);

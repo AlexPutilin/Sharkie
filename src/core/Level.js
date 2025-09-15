@@ -1,11 +1,13 @@
 class Level {
     backgrounds;
     enemies;
-    uiElements;
+    coins;
+    poisons;
 
-    constructor(backgrounds, enemies, uiElements) {
+    constructor(backgrounds, enemies, coins, poisons) {
         this.backgrounds = backgrounds;
         this.enemies = enemies;
-        this.uiElements = uiElements
+        this.coins = coins;
+        this.poisons = poisons;
     }
 }

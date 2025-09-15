@@ -5,6 +5,8 @@ class World {
     controller;
     backgrounds = level1.backgrounds;
     enemies = level1.enemies;
+    coins = level1.coins;
+    poisons = level1.poisons;
     healthbar = new Healthbar();
     poisonbar = new Poisonbar();
     coinbar = new Coinbar();
@@ -15,6 +17,7 @@ class World {
         this.canvas = canvas;
         this.controller = controller;
         this.player = new Sharkie(this);
+        // this.initWorldRef();
         this.gameLoop();
         this.draw();
     }
@@ -32,6 +35,18 @@ class World {
             if (this.player.isColliding(enemy)) {
                 this.player.getHit();
                 enemy.onCollision();
+            }
+        });
+        this.coins.forEach((coin, index) => {
+            if (this.player.isColliding(coin)) {
+                this.coins.splice(index, 1);
+                this.coinbar.reduceStatusbar();
+            }
+        });
+        this.poisons.forEach((poison, index) => {
+            if (this.player.isColliding(poison)) {
+                this.poisons.splice(index, 1);
+                this.poisonbar.reduceStatusbar();
             }
         });
     }
@@ -55,6 +70,19 @@ class World {
         });
     }
 
+    // initWorldRef() {
+    //     this.projectiles.forEach(projectile => {
+    //         this.setReferenceToWorld(projectile);
+    //     });
+    //     this.coins.forEach(coin => {
+    //         this.setReferenceToWorld(coin);
+    //     });
+    // }
+
+    // setReferenceToWorld(obj) {
+    //     obj.world = this;
+    // }
+
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.cameraX, 0);
@@ -64,6 +92,12 @@ class World {
         });
         this.enemies.forEach(enemie => {
             this.addToWorld(enemie);
+        });
+        this.coins.forEach(coin => {
+            this.addToWorld(coin);
+        });
+        this.poisons.forEach(poison => {
+            this.addToWorld(poison);
         });
         this.projectiles.forEach(projectile => {
             this.addToWorld(projectile);
