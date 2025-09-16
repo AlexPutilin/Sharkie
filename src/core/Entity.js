@@ -4,7 +4,7 @@ class Entity extends GameObject {
     spriteCache = {};
     currentSprites;
     currentSpriteIndex = 0;
-
+    destroyClass = false;
 
     constructor(...args) {
         super(...args);

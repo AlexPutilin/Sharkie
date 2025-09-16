@@ -20,7 +20,7 @@ class Jellyfish extends Entity {
         'assets/sprites/enemy/jellyfish/dead/jellyfish_dead_4.png',
     ];
     isColliding = false;
-    destroyEnemy = false;
+    // destroyEnemy = false;
 
     constructor(...args) {
         super(...args);
@@ -50,7 +50,7 @@ class Jellyfish extends Entity {
             this.playAnimation(this.hitSprites);
         } else if (this.isDeath()) {
             this.playAnimation(this.deathSprites, false, () => {
-                this.destroyEnemy = true;
+                this.destroyClass = true;
             });
         } else {
             this.playAnimation(this.swimSprites);

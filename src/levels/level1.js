@@ -39,8 +39,7 @@ const level1 = new Level(
         new Coin(2500, 600),
     ],
     [
-        new Poison(300, 500),
-        new Poison(600, 500),
+        new PoisonSpawner(300, 0, 200, 720, true),
     ]
 );
 

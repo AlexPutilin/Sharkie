@@ -1,4 +1,4 @@
-class Poison extends Pickable {
+class Poison extends Pickable {    
     constructor(x, y) {
         super(x, y, [
             'assets/sprites/poison/poison_1.png',
@@ -10,5 +10,14 @@ class Poison extends Pickable {
             'assets/sprites/poison/poison_7.png',
             'assets/sprites/poison/poison_8.png',
         ]);
+        this.update();
+
+    }
+
+    update() {
+        this.speed = 1;
+        setInterval(() => {
+            this.posY += this.speed;
+        }, 1000 / 60);
     }
 }

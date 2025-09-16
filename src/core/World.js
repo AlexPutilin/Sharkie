@@ -6,11 +6,13 @@ class World {
     backgrounds = level1.backgrounds;
     enemies = level1.enemies;
     coins = level1.coins;
-    poisons = level1.poisons;
+    // poison = level1.poisons;
+    poisonSpawner = level1.spawner;
     healthbar = new Healthbar();
     poisonbar = new Poisonbar();
     coinbar = new Coinbar();
     projectiles = [];
+    poisons = [];
 
     constructor(canvas, controller) {
         this.ctx = canvas.getContext('2d');
@@ -50,6 +52,13 @@ class World {
                 this.player.calcPoisonAmount();
             }
         });
+        this.poisonSpawner.forEach(spawner => {
+            if (this.player.isColliding(spawner)) {
+                spawner.triggerSpawn(this);
+            } else {
+                spawner.stopInterval();
+            }
+        });
     }
   
     checkProjectileCollisions() {
@@ -65,18 +74,15 @@ class World {
 
     checkDestroyEnemy() {
         this.enemies.forEach((enemy, index) => {
-            if (enemy.destroyEnemy) {
+            if (enemy.destroyClass) {
                 this.enemies.splice(index, 1);
             }
         });
     }
 
     // initWorldRef() {
-    //     this.projectiles.forEach(projectile => {
-    //         this.setReferenceToWorld(projectile);
-    //     });
-    //     this.coins.forEach(coin => {
-    //         this.setReferenceToWorld(coin);
+    //     this.poisonSpawner.forEach(spawner => {
+    //         this.setReferenceToWorld(spawner);
     //     });
     // }
 
@@ -97,6 +103,9 @@ class World {
         this.coins.forEach(coin => {
             this.addToWorld(coin);
         });
+        this.poisonSpawner.forEach(spawn => {
+            this.addToWorld(spawn);
+        })
         this.poisons.forEach(poison => {
             this.addToWorld(poison);
         });

@@ -2,12 +2,12 @@ class Level {
     backgrounds;
     enemies;
     coins;
-    poisons;
+    spawner;
 
-    constructor(backgrounds, enemies, coins, poisons) {
+    constructor(backgrounds, enemies, coins, spawner) {
         this.backgrounds = backgrounds;
         this.enemies = enemies;
         this.coins = coins;
-        this.poisons = poisons;
+        this.spawner = spawner;
     }
 }
