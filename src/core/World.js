@@ -25,7 +25,7 @@ class World {
     }
 
     gameLoop() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.checkPlayerCollisions();
             this.checkProjectileCollisions();
             this.checkDestroyEnemy();

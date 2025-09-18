@@ -20,8 +20,7 @@ class Jellyfish extends Entity {
         'assets/sprites/enemy/jellyfish/dead/jellyfish_dead_4.png',
     ];
     isColliding = false;
-    // destroyEnemy = false;
-
+    
     constructor(...args) {
         super(...args);
         this.collisionBox = {x: 5 , y: 5, w: 90, h: 90};
@@ -60,8 +59,8 @@ class Jellyfish extends Entity {
     onCollision() {
         if (this.isColliding) return;
         this.isColliding = true;
-        setTimeout(() => {
+        setStoppableInterval(() => {
             this.isColliding = false;
-        }, 1000)
+        }, 1000);
     }
 }

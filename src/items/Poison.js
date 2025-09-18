@@ -16,7 +16,7 @@ class Poison extends Pickable {
 
     update() {
         this.speed = 1;
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.posY += this.speed;
         }, 1000 / 60);
     }

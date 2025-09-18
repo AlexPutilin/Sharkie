@@ -9,7 +9,7 @@ class Projectile extends Entity {
 
     pushProjectile() {
         this.speed = 10;
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.reverse) {
                 this.posX -= this.speed;
             } else {

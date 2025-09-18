@@ -1,16 +1,34 @@
 let canvas;
 let controller;
 let world;
+let intervalIds = [];
 
 
 document.addEventListener("DOMContentLoaded", (event) => {
     canvas = document.getElementById('canvas');
     controller = new Input();
+    initLevel();
     world = new World(canvas, controller);
 })
 
-function initGame() {
-    
+
+function startGame() {
+    if (world) return;
+    controller = new Input();
+    initLevel();
+    world = new World(canvas, controller);
+}
+
+
+function stopGame() {
+    if (!world) return;
+    stopIntervals();
+    world.enemies = [];
+    world.coins = [];
+    world = null;
+    controller = null;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 
@@ -33,3 +51,15 @@ window.addEventListener('keyup', (e) => {
     if (e.key === "ArrowDown") controller.kDown = false;
     if (e.key === " ") {controller.kSpace = false;}
 });
+
+
+function setStoppableInterval(fn, ms) {
+    const id = setInterval(fn, ms);
+    intervalIds.push(id);
+    return id;
+}
+
+
+function stopIntervals() {
+    intervalIds.forEach(clearInterval);
+}
