@@ -109,35 +109,23 @@ class Sharkie extends Entity {
             this.flippedImg = true;
             this.move("left");
         }
-        if (this.world.controller.kUp && !this.isDeath() && this.posY > -100) {
-            this.move("up");
-        }
-        if (this.world.controller.kDown && !this.isDeath() && this.posY < 570) {
-            this.move("down");
-        }
+        if (this.world.controller.kUp && !this.isDeath() && this.posY > -100) this.move("up");
+        if (this.world.controller.kDown && !this.isDeath() && this.posY < 570) this.move("down");
         this.world.cameraX = -this.posX + 100;
     }
 
     handleAnimation() {
-        if (this.isHit) {
-            this.playAnimation(this.hurtShockedSprites);
-        } else if (this.isAttacking) {
+        if (this.isHit) this.playAnimation(this.hurtShockedSprites);
+        else if (this.isAttacking) {
             this.playAnimation(this.poisonBuff ? this.attackPoisonedSprites : this.attackSprites, false, () => {
                 this.isAttacking = false;
                 this.spawnProjectile();
             });
         }
-        else if (this.isDeath()) {
-            this.playAnimation(this.deadShockedSprites, false);
-        }
-        else if (this.world.controller.kRight || this.world.controller.kLeft) {
-            this.playAnimation(this.swimSprites);
-        }
-        else if (this.world.controller.kUp || this.world.controller.kDown) {
-            this.playAnimation(this.swimSprites);
-        } else {
-            this.playAnimation(this.idleSprites);
-        }
+        else if (this.isDeath()) this.playAnimation(this.deadShockedSprites, false);
+        else if (this.world.controller.kRight || this.world.controller.kLeft) this.playAnimation(this.swimSprites);
+        else if (this.world.controller.kUp || this.world.controller.kDown) this.playAnimation(this.swimSprites);
+        else this.playAnimation(this.idleSprites);
     }
 
     getHit() {
