@@ -18,4 +18,18 @@ main {
 
 canvas {
     background-color: black;
+    display: block;
+}
+
+
+@media only screen and (max-width: 1080px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 720px) {
+    canvas {
+        height: 100vh;
+    }   
 }
