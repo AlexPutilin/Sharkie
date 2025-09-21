@@ -26,6 +26,10 @@ function initLevel() {
             new Background(3240, 0, 1080, 720, 'assets/imgs/background/background_layer1_2.png'), 
             new Background(3240, 0, 1080, 720, 'assets/imgs/background/background_layer2_2.png'),
             new Background(3240, 0, 1080, 720, 'assets/imgs/background/background_layer3_2.png'),
+            new Background(4320, 0, 1080, 720, 'assets/imgs/background/background_layer0_1.png'), 
+            new Background(4320, 0, 1080, 720, 'assets/imgs/background/background_layer1_1.png'), 
+            new Background(4320, 0, 1080, 720, 'assets/imgs/background/background_layer2_1.png'),
+            new Background(4320, 0, 1080, 720, 'assets/imgs/background/background_layer3_1.png'),
         ],
         [
             new Jellyfish(1100, 100, 100, 100),

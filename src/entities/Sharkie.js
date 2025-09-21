@@ -101,7 +101,7 @@ class Sharkie extends Entity {
             this.world.controller.kSpacePressedOnce = false;
             this.isAttacking = true;
         }
-        if (this.world.controller.kRight && !this.isDeath() && this.posX < 3340) {
+        if (this.world.controller.kRight && !this.isDeath() && this.posX < 4220) {
             this.flippedImg = false;
             this.move("right");
         }
