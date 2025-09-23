@@ -20,13 +20,6 @@ class Entity extends GameObject {
         });
     }
 
-    // playAnimation(sprites) {
-    //     this.currentSpriteIndex = (this.currentSpriteIndex + sprites.length) % sprites.length;
-    //     let path = sprites[this.currentSpriteIndex];
-    //     this.img = this.spriteCache[path];
-    //     this.currentSpriteIndex++;
-    // }
-
     playAnimation(sprites, loop = true, onEnd = null) {
         this.resetAnimationIndex(sprites);
         let path = sprites[this.currentSpriteIndex];
@@ -50,22 +43,10 @@ class Entity extends GameObject {
     }
 
     move(direction) {
-        switch (direction) {
-            case "right":
-                this.posX += this.speed;
-                break;
-            case "left":
-                this.posX -= this.speed;
-                break
-            case "up":
-                this.posY -= this.speed;
-                break
-            case "down":
-                this.posY += this.speed;
-                break
-            default:
-                break;
-        }
+        if (direction === "right") return this.posX += this.speed;
+        if (direction === "left") return this.posX -= this.speed;
+        if (direction === "up") return this.posY -= this.speed;
+        if (direction === "down") return this.posY += this.speed;
     }
 
     isColliding(obj) {
