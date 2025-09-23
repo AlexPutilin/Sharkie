@@ -15,7 +15,6 @@ class World {
 
     constructor(canvas, controller) {
         this.createInstances(canvas, controller);
-        this.setWorldToWhale();
         this.gameLoop();
         this.draw();
     }
@@ -87,12 +86,6 @@ class World {
             if (enemy.destroyClass) {
                 this.enemies.splice(index, 1);
             }
-        });
-    }
-
-    setWorldToWhale() {
-        this.enemies.forEach(enemie => {
-            if (enemie instanceof Whale) enemie.world = this;
         });
     }
 

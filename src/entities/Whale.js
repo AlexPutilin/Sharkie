@@ -37,7 +37,6 @@ class Whale extends Entity {
        'assets/sprites/enemy/whale/attack/whale_attack_5.png',
        'assets/sprites/enemy/whale/attack/whale_attack_6.png',
     ];
-    world;
 
     constructor(...args) {
         super(...args);
@@ -73,8 +72,5 @@ class Whale extends Entity {
 
     getHit(dmg, poisoned) {
         if (poisoned) super.getHit(dmg);
-        
-        // if (this.isHit) return;
-        // if (this.player.poisonBuff) super.getHit(dmg);
     }
 }
