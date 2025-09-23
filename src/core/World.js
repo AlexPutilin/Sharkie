@@ -72,13 +72,24 @@ class World {
   
     checkProjectileCollisions() {
         this.projectiles.forEach((projectile, index) => {
-            this.enemies.forEach((enemy) => {
-                if (projectile.isColliding(enemy)) {
-                    enemy.getHit(100, projectile.poisoned);
-                    this.projectiles.splice(index, 1);
-                }
-            });
+            this.checkProjectileHitEnemy(projectile, index);
+            this.checkProjectileOvermap(projectile, index)
         });
+    }
+
+    checkProjectileHitEnemy(projectile, index) {
+        this.enemies.forEach((enemy) => {
+            if (projectile.isColliding(enemy)) {
+                enemy.getHit(100, projectile.poisoned);
+                this.projectiles.splice(index, 1);
+            }
+        });
+    }
+
+    checkProjectileOvermap(projectile, index) {
+        if (projectile.posX > this.player.posX + 920) {
+            this.projectiles.splice(index, 1);
+        }
     }
 
     checkDestroyEnemy() {
@@ -88,16 +99,6 @@ class World {
             }
         });
     }
-
-    // initWorldRef() {
-    //     this.poisonSpawner.forEach(spawner => {
-    //         this.setReferenceToWorld(spawner);
-    //     });
-    // }
-
-    // setReferenceToWorld(obj) {
-    //     obj.world = this;
-    // }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
