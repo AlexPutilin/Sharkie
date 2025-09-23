@@ -6,6 +6,7 @@ class Entity extends GameObject {
     currentSpriteIndex = 0;
     destroyClass = false;
     onColliding = false;
+    isHit = false;
 
     constructor(...args) {
         super(...args);
@@ -86,6 +87,7 @@ class Entity extends GameObject {
 
     getHit(dmg) {
         if (this.isHit) return;
+        console.log("getHit() von Parent");
         this.isHit = true;
         this.takeDmg(dmg);
         setTimeout(() => {

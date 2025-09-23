@@ -1,30 +1,38 @@
 class World {
     ctx;
     canvas;
-    cameraX = 0;
     controller;
-    backgrounds = level1.backgrounds;
-    enemies = level1.enemies;
-    coins = level1.coins;
-    // poison = level1.poisons;
-    poisonSpawner = level1.spawner;
-    healthbar = new Healthbar();
-    poisonbar = new Poisonbar();
-    coinbar = new Coinbar();
+    cameraX = 0;
+    // backgrounds = level1.backgrounds;
+    // enemies = level1.enemies;
+    // coins = level1.coins;
+    // poisonSpawner = level1.spawner;
+    // healthbar = new Healthbar();
+    // poisonbar = new Poisonbar();
+    // coinbar = new Coinbar();
     projectiles = [];
     poisons = [];
 
     constructor(canvas, controller) {
-        this.ctx = canvas.getContext('2d');
-        this.canvas = canvas;
-        this.controller = controller;
-        this.player = new Sharkie(this);
-        // this.initWorldRef();
+        this.createInstances(canvas, controller);
+        this.setWorldToWhale();
         this.gameLoop();
         this.draw();
     }
 
-    
+    createInstances(canvas, controller) {
+        this.ctx = canvas.getContext('2d');
+        this.canvas = canvas;
+        this.controller = controller;
+        this.player = new Sharkie(this);
+        this.backgrounds = level1.backgrounds;
+        this.enemies = level1.enemies;
+        this.coins = level1.coins;
+        this.poisonSpawner = level1.spawner;
+        this.healthbar = new Healthbar();
+        this.poisonbar = new Poisonbar();
+        this.coinbar = new Coinbar();
+    }
 
     gameLoop() {
         setStoppableInterval(() => {
@@ -67,7 +75,7 @@ class World {
         this.projectiles.forEach((projectile, index) => {
             this.enemies.forEach((enemy) => {
                 if (projectile.isColliding(enemy)) {
-                    enemy.getHit(100);
+                    enemy.getHit(100, projectile.poisoned);
                     this.projectiles.splice(index, 1);
                 }
             });
@@ -79,6 +87,12 @@ class World {
             if (enemy.destroyClass) {
                 this.enemies.splice(index, 1);
             }
+        });
+    }
+
+    setWorldToWhale() {
+        this.enemies.forEach(enemie => {
+            if (enemie instanceof Whale) enemie.world = this;
         });
     }
 
