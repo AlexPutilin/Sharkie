@@ -3,13 +3,6 @@ class World {
     canvas;
     controller;
     cameraX = 0;
-    // backgrounds = level1.backgrounds;
-    // enemies = level1.enemies;
-    // coins = level1.coins;
-    // poisonSpawner = level1.spawner;
-    // healthbar = new Healthbar();
-    // poisonbar = new Poisonbar();
-    // coinbar = new Coinbar();
     projectiles = [];
     poisons = [];
 
@@ -35,25 +28,38 @@ class World {
 
     gameLoop() {
         setStoppableInterval(() => {
-            this.checkPlayerCollisions();
-            this.checkProjectileCollisions();
+            this.startPlayerLoop();
+            this.startProjectileLoop();
             this.checkDestroyEnemy();
         }, 100);
     }
 
-    checkPlayerCollisions() {
+    startPlayerLoop() {
+        this.checkPlayerIsCollidingEnemy();
+        this.checkPlayerIsCollidingCoins();
+        this.checkPlayerIsCollidingPoisons();
+        this.checkPlayerIsCollidingSpawner();
+    }
+
+    checkPlayerIsCollidingEnemy() {
         this.enemies.forEach(enemy => {
             if (this.player.isColliding(enemy)) {
                 this.player.getHit(20);
                 enemy.onCollision();
             }
         });
+    }
+
+    checkPlayerIsCollidingCoins() {
         this.coins.forEach((coin, index) => {
             if (this.player.isColliding(coin)) {
                 this.coins.splice(index, 1);
                 this.coinbar.reduceStatusbar();
             }
         });
+    }
+
+    checkPlayerIsCollidingPoisons() {
         this.poisons.forEach((poison, index) => {
             if (this.player.isColliding(poison)) {
                 this.poisons.splice(index, 1);
@@ -61,6 +67,9 @@ class World {
                 this.player.calcPoisonAmount();
             }
         });
+    }
+
+    checkPlayerIsCollidingSpawner() {
         this.poisonSpawner.forEach(spawner => {
             if (this.player.isColliding(spawner)) {
                 spawner.triggerSpawn(this);
@@ -70,7 +79,7 @@ class World {
         });
     }
   
-    checkProjectileCollisions() {
+    startProjectileLoop() {
         this.projectiles.forEach((projectile, index) => {
             this.checkProjectileHitEnemy(projectile, index);
             this.checkProjectileOvermap(projectile, index)
@@ -101,35 +110,42 @@ class World {
     }
 
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.cameraX, 0);
-        
-        this.backgrounds.forEach(background => {
-            this.addToWorld(background);
-        });
-        this.enemies.forEach(enemie => {
-            this.addToWorld(enemie);
-        });
-        this.coins.forEach(coin => {
-            this.addToWorld(coin);
-        });
-        this.poisonSpawner.forEach(spawn => {
-            this.addToWorld(spawn);
-        })
-        this.poisons.forEach(poison => {
-            this.addToWorld(poison);
-        });
-        this.projectiles.forEach(projectile => {
-            this.addToWorld(projectile);
-        });
+        this.clearCanvas();
+        this.translateCamera();
+        this.drawEachObject(this.backgrounds);
+        this.drawEachObject(this.enemies);
+        this.drawEachObject(this.coins);
+        this.drawEachObject(this.poisonSpawner);
+        this.drawEachObject(this.poisons);
+        this.drawEachObject(this.projectiles);
         this.addToWorld(this.player);
+        this.drawStaticObjects();
+        requestAnimationFrame(() => this.draw());
+    }
+
+    clearCanvas() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    translateCamera() {
+        this.ctx.translate(this.cameraX, 0);
+    }
+
+    resetCamera() {
         this.ctx.translate(-this.cameraX, 0);
+    }
+
+    drawStaticObjects() {
+        this.resetCamera();
         this.addToWorld(this.healthbar);
         this.addToWorld(this.poisonbar);
         this.addToWorld(this.coinbar);
-        this.ctx.translate(this.cameraX, 0);
-        this.ctx.translate(-this.cameraX, 0);
-        requestAnimationFrame(() => this.draw());
+    }
+
+    drawEachObject(arr = []) {
+        arr.forEach(obj => {
+            this.addToWorld(obj)
+        });
     }
 
     addToWorld(obj) {
