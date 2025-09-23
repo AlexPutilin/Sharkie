@@ -29,16 +29,24 @@ class Whale extends Entity {
         'assets/sprites/enemy/whale/dead/whale_dead_4.png',
         'assets/sprites/enemy/whale/dead/whale_dead_5.png',
     ];
-    isColliding = false;
+    attackSprites = [
+       'assets/sprites/enemy/whale/attack/whale_attack_1.png',
+       'assets/sprites/enemy/whale/attack/whale_attack_2.png',
+       'assets/sprites/enemy/whale/attack/whale_attack_3.png',
+       'assets/sprites/enemy/whale/attack/whale_attack_4.png',
+       'assets/sprites/enemy/whale/attack/whale_attack_5.png',
+       'assets/sprites/enemy/whale/attack/whale_attack_6.png',
+    ];
 
     constructor(...args) {
         super(...args);
-        this.collisionBox = {x: 20 , y: 100, w: 260, h: 150};
+        this.collisionBox = {x: -20 , y: 100, w: 300, h: 150};
         this.speed = 1;
         this.life = 300;
         this.loadSpriteCache(this.swimSprites);
         this.loadSpriteCache(this.hitSprites);
         this.loadSpriteCache(this.deathSprites);
+        this.loadSpriteCache(this.attackSprites);
         this.animationLoop();
     }
 
@@ -56,22 +64,9 @@ class Whale extends Entity {
     }
 
     handleAnimation() {
-        if (this.isColliding) {
-            this.playAnimation(this.hitSprites);
-        } else if (this.isDeath()) {
-            this.playAnimation(this.deathSprites, false, () => {
-                this.destroyClass = true;
-            });
-        } else {
-            this.playAnimation(this.swimSprites);
-        }
-    }
-
-    onCollision() {
-        if (this.isColliding) return;
-        this.isColliding = true;
-        setStoppableInterval(() => {
-            this.isColliding = false;
-        }, 1000);
+        if (this.onColliding) this.playAnimation(this.attackSprites);
+        else if (this.isHit) this.playAnimation(this.hitSprites);
+        else if (this.isDeath()) this.playAnimation(this.deathSprites, false, () => this.destroyClass = true);
+        else this.playAnimation(this.swimSprites);
     }
 }

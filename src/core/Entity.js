@@ -5,6 +5,7 @@ class Entity extends GameObject {
     currentSprites;
     currentSpriteIndex = 0;
     destroyClass = false;
+    onColliding = false;
 
     constructor(...args) {
         super(...args);
@@ -73,6 +74,23 @@ class Entity extends GameObject {
             this.posY + this.collisionBox.y < obj.posY + obj.collisionBox.y + obj.collisionBox.h &&
             this.posY + this.collisionBox.y + this.collisionBox.h > obj.posY + obj.collisionBox.y
         );
+    }
+
+    onCollision() {
+        if (this.onColliding) return;
+        this.onColliding = true;
+        setTimeout(() => {
+            this.onColliding = false;
+        }, 1000);
+    }
+
+    getHit(dmg) {
+        if (this.isHit) return;
+        this.isHit = true;
+        this.takeDmg(dmg);
+        setTimeout(() => {
+            this.isHit = false;
+        }, 1000);
     }
 
     takeDmg(dmg) {        

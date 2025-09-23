@@ -19,7 +19,6 @@ class Jellyfish extends Entity {
         'assets/sprites/enemy/jellyfish/dead/jellyfish_dead_3.png',
         'assets/sprites/enemy/jellyfish/dead/jellyfish_dead_4.png',
     ];
-    isColliding = false;
     
     constructor(...args) {
         super(...args);
@@ -45,22 +44,8 @@ class Jellyfish extends Entity {
     }
 
     handleAnimation() {
-        if (this.isColliding) {
-            this.playAnimation(this.hitSprites);
-        } else if (this.isDeath()) {
-            this.playAnimation(this.deathSprites, false, () => {
-                this.destroyClass = true;
-            });
-        } else {
-            this.playAnimation(this.swimSprites);
-        }
-    }
-
-    onCollision() {
-        if (this.isColliding) return;
-        this.isColliding = true;
-        setStoppableInterval(() => {
-            this.isColliding = false;
-        }, 1000);
+        if (this.onColliding) this.playAnimation(this.hitSprites);
+        else if (this.isDeath()) this.playAnimation(this.deathSprites, false, () => this.destroyClass = true);
+        else this.playAnimation(this.swimSprites);
     }
 }

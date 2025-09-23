@@ -24,6 +24,8 @@ class World {
         this.draw();
     }
 
+    
+
     gameLoop() {
         setStoppableInterval(() => {
             this.checkPlayerCollisions();
@@ -35,7 +37,7 @@ class World {
     checkPlayerCollisions() {
         this.enemies.forEach(enemy => {
             if (this.player.isColliding(enemy)) {
-                this.player.getHit();
+                this.player.getHit(20);
                 enemy.onCollision();
             }
         });
@@ -65,7 +67,7 @@ class World {
         this.projectiles.forEach((projectile, index) => {
             this.enemies.forEach((enemy) => {
                 if (projectile.isColliding(enemy)) {
-                    enemy.takeDmg(100);
+                    enemy.getHit(100);
                     this.projectiles.splice(index, 1);
                 }
             });

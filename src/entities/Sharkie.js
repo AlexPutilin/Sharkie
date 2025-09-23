@@ -69,7 +69,6 @@ class Sharkie extends Entity {
     ];
     flippedImg = false;
     isAttacking = false;
-    isHit = false;
     isProjectileSpawned = false;
     poisonBuff = false;
 
@@ -115,27 +114,23 @@ class Sharkie extends Entity {
     }
 
     handleAnimation() {
-        if (this.isHit) this.playAnimation(this.hurtShockedSprites);
+        if (this.isDeath()) this.playAnimation(this.deadShockedSprites, false);
         else if (this.isAttacking) {
             this.playAnimation(this.poisonBuff ? this.attackPoisonedSprites : this.attackSprites, false, () => {
                 this.isAttacking = false;
                 this.spawnProjectile();
             });
         }
-        else if (this.isDeath()) this.playAnimation(this.deadShockedSprites, false);
+        else if (this.isHit) this.playAnimation(this.hurtShockedSprites);
         else if (this.world.controller.kRight || this.world.controller.kLeft) this.playAnimation(this.swimSprites);
         else if (this.world.controller.kUp || this.world.controller.kDown) this.playAnimation(this.swimSprites);
         else this.playAnimation(this.idleSprites);
     }
 
-    getHit() {
+    getHit(dmg) {
         if (this.isHit) return;
-        this.isHit = true;
-        this.takeDmg(20);
+        super.getHit(dmg);
         this.world.healthbar.reduceStatusbar();
-        setTimeout(() => {
-            this.isHit = false;
-        }, 1000)
     }
 
     calcPoisonAmount() {
