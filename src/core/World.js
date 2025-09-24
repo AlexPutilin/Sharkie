@@ -144,7 +144,7 @@ class World {
     }
 
     smoothCameraTransition() {
-        this.cameraX += (this.targetCameraX - this.cameraX) * 0.08;
+        this.cameraX += (this.targetCameraX - this.cameraX) * 0.1;
     }
 
     drawStaticObjects() {
