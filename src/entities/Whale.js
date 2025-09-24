@@ -37,12 +37,32 @@ class Whale extends Entity {
        'assets/sprites/enemy/whale/attack/whale_attack_5.png',
        'assets/sprites/enemy/whale/attack/whale_attack_6.png',
     ];
+    introSprites = [
+        'assets/sprites/enemy/whale/intro/whale_intro_1.png',
+        'assets/sprites/enemy/whale/intro/whale_intro_2.png',
+        'assets/sprites/enemy/whale/intro/whale_intro_3.png',
+        'assets/sprites/enemy/whale/intro/whale_intro_4.png',
+        'assets/sprites/enemy/whale/intro/whale_intro_5.png',
+        'assets/sprites/enemy/whale/intro/whale_intro_6.png',
+        'assets/sprites/enemy/whale/intro/whale_intro_7.png',
+        'assets/sprites/enemy/whale/intro/whale_intro_8.png',
+        'assets/sprites/enemy/whale/intro/whale_intro_9.png',
+        'assets/sprites/enemy/whale/intro/whale_intro_10.png',
+    ]
+    flippedImg = false;
+    isIntroDone = false;
+    isActive = false;
+    bossAreaStart = 3200;
+    bossAreaEnd = 4500;
+    world;
 
-    constructor(...args) {
-        super(...args);
-        this.collisionBox = {x: -20 , y: 100, w: 300, h: 150};
-        this.speed = 1;
+    constructor(world) {
+        super(4000, 0, 300, 300);
+        this.world = world;
+        this.speed = 0.3;
         this.life = 300;
+        this.collisionBox = {x: -20 , y: 100, w: 300, h: 150};
+        this.loadSpriteCache(this.introSprites);
         this.loadSpriteCache(this.swimSprites);
         this.loadSpriteCache(this.hitSprites);
         this.loadSpriteCache(this.deathSprites);
@@ -51,20 +71,37 @@ class Whale extends Entity {
     }
 
     animationLoop(timestamp = 0) {
-        this.handleMovement();
-        if(timestamp - this.lastAnimationTime > this.animationInterval) {
-            this.handleAnimation();
-            this.lastAnimationTime = timestamp;
+        this.checkBossArea();
+        if (this.isActive) {
+            this.handleMovement();
+            console.log(this.world.player.posX)
+            console.log("isIntroDone:", this.isIntroDone)
+            console.log("isActive:", this.isActive)
+            if(timestamp - this.lastAnimationTime > this.animationInterval) {
+                this.handleAnimation();
+                this.lastAnimationTime = timestamp;
+            }
         }
         requestAnimationFrame((t) => this.animationLoop(t));
     }
     
     handleMovement() {
-        // this.move("left");
+        const player = this.world.player;
+        if (player.posX > this.posX) {
+            this.move("right");
+            this.flippedImg = true;
+        }
+        else if (player.posX < this.posX) {
+            this.move("left");
+            this.flippedImg = false;
+        }
+        if (player.posY > this.posY) this.move("down");
+        else if (player.posY < this.posY) this.move("up");
     }
 
     handleAnimation() {
-        if (this.onColliding) this.playAnimation(this.attackSprites);
+        if (!this.isIntroDone && this.isActive) this.playAnimation(this.introSprites, false, () => this.isIntroDone = true);
+        else if (this.onColliding) this.playAnimation(this.attackSprites);
         else if (this.isHit) this.playAnimation(this.hitSprites);
         else if (this.isDeath()) this.playAnimation(this.deathSprites, false, () => this.destroyClass = true);
         else this.playAnimation(this.swimSprites);
@@ -72,5 +109,12 @@ class Whale extends Entity {
 
     getHit(dmg, poisoned) {
         if (poisoned) super.getHit(dmg);
+    }
+
+    checkBossArea() {
+        const player = this.world.player;
+        if (player.posX >= this.bossAreaStart && player.posX <= this.bossAreaEnd) {
+            this.isActive = true;
+        }
     }
 }

@@ -38,7 +38,6 @@ function initLevel() {
             new Jellyfish(2300, 200, 100, 100),
             new Jellyfish(3300, 500, 100, 100),
             new Jellyfish(3500, 350, 100, 100),
-            new Whale(4000, 150, 300, 300),
         ],
         [
             new Coin(500, 500),

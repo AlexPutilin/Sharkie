@@ -8,6 +8,7 @@ class World {
 
     constructor(canvas, controller) {
         this.createInstances(canvas, controller);
+        this.setBossToEnemies();
         this.gameLoop();
         this.draw();
     }
@@ -17,6 +18,7 @@ class World {
         this.canvas = canvas;
         this.controller = controller;
         this.player = new Sharkie(this);
+        this.boss = new Whale(this);
         this.backgrounds = level1.backgrounds;
         this.enemies = level1.enemies;
         this.coins = level1.coins;
@@ -107,6 +109,10 @@ class World {
                 this.enemies.splice(index, 1);
             }
         });
+    }
+
+    setBossToEnemies() {
+        this.enemies.push(this.boss);
     }
 
     draw() {
