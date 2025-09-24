@@ -74,9 +74,6 @@ class Whale extends Entity {
         this.checkBossArea();
         if (this.isActive) {
             this.handleMovement();
-            console.log(this.world.player.posX)
-            console.log("isIntroDone:", this.isIntroDone)
-            console.log("isActive:", this.isActive)
             if(timestamp - this.lastAnimationTime > this.animationInterval) {
                 this.handleAnimation();
                 this.lastAnimationTime = timestamp;

@@ -71,11 +71,14 @@ class Sharkie extends Entity {
     isAttacking = false;
     isProjectileSpawned = false;
     poisonBuff = false;
+    bossFight = false;
+    bossAreaStart = 3240;
+    bossAreaEnd = 4320;
 
     constructor(world) {
         super(0, 200, 200, 200);
         this.world = world
-        this.speed = 2;
+        this.speed = 10;
         this.collisionBox = {x: 40 , y: 100, w: 120, h: 60};
         this.loadSpriteCache(this.idleSprites);
         this.loadSpriteCache(this.swimSprites);
@@ -96,10 +99,33 @@ class Sharkie extends Entity {
     }
 
     handleInputs() {
+        console.log(this.posX)
         if (this.world.controller.kSpacePressedOnce && !this.isDeath() && !this.isAttacking) {
             this.world.controller.kSpacePressedOnce = false;
             this.isAttacking = true;
         }
+        if (this.posX >= this.bossAreaStart && this.posX <= this.bossAreaEnd) {
+            this.movementOnBossArea();
+        } else {
+            this.movementDefault();
+        }
+        if (this.world.controller.kUp && !this.isDeath() && this.posY > -100) this.move("up");
+        if (this.world.controller.kDown && !this.isDeath() && this.posY < 570) this.move("down");
+    }
+
+    movementOnBossArea() {
+        if (this.world.controller.kRight && !this.isDeath() && this.posX < this.bossAreaEnd - 150) {
+            this.flippedImg = false;
+            this.move("right");
+        }
+        if (this.world.controller.kLeft && !this.isDeath() && this.posX > this.bossAreaStart) {
+            this.flippedImg = true;
+            this.move("left");
+        }
+        this.world.targetCameraX = -((this.bossAreaStart + this.bossAreaEnd) / 2) + (this.world.canvas.width / 2);
+    }
+
+    movementDefault() {
         if (this.world.controller.kRight && !this.isDeath() && this.posX < 4220) {
             this.flippedImg = false;
             this.move("right");
@@ -108,9 +134,7 @@ class Sharkie extends Entity {
             this.flippedImg = true;
             this.move("left");
         }
-        if (this.world.controller.kUp && !this.isDeath() && this.posY > -100) this.move("up");
-        if (this.world.controller.kDown && !this.isDeath() && this.posY < 570) this.move("down");
-        this.world.cameraX = -this.posX + 100;
+        this.world.targetCameraX = -this.posX + 100;
     }
 
     handleAnimation() {

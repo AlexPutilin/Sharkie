@@ -5,6 +5,7 @@ class World {
     cameraX = 0;
     projectiles = [];
     poisons = [];
+    targetCameraX = 0;
 
     constructor(canvas, controller) {
         this.createInstances(canvas, controller);
@@ -117,6 +118,7 @@ class World {
 
     draw() {
         this.clearCanvas();
+        this.smoothCameraTransition();
         this.translateCamera();
         this.drawEachObject(this.backgrounds);
         this.drawEachObject(this.enemies);
@@ -139,6 +141,10 @@ class World {
 
     resetCamera() {
         this.ctx.translate(-this.cameraX, 0);
+    }
+
+    smoothCameraTransition() {
+        this.cameraX += (this.targetCameraX - this.cameraX) * 0.08;
     }
 
     drawStaticObjects() {
