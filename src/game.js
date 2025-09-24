@@ -4,12 +4,16 @@ let world;
 let intervalIds = [];
 
 
-document.addEventListener("DOMContentLoaded", (event) => {
+document.addEventListener("DOMContentLoaded", () => {
+    // initGame();
+})
+
+function initGame() {
     canvas = document.getElementById('canvas');
     controller = new Input();
     initLevel();
     world = new World(canvas, controller);
-})
+}
 
 
 function startGame() {

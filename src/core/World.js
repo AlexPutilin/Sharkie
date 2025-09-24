@@ -163,7 +163,7 @@ class World {
             this.flipImg(obj);
         }
         this.ctx.drawImage(obj.img, obj.posX, obj.posY, obj.width, obj.height);
-        this.drawRec(obj.posX + obj.collisionBox.x,obj.posY + obj.collisionBox.y, obj.collisionBox.w, obj.collisionBox.h)
+        // this.drawRec(obj.posX + obj.collisionBox.x,obj.posY + obj.collisionBox.y, obj.collisionBox.w, obj.collisionBox.h)
         if (obj.flippedImg) {
             this.flipImgBack(obj);
         }
@@ -191,6 +191,3 @@ class World {
         this.ctx.stroke();
     }
 }
-
-
-// ctx.drawImage(img, x, y, width, height);
