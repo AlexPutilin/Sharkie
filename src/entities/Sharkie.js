@@ -99,7 +99,6 @@ class Sharkie extends Entity {
     }
 
     handleInputs() {
-        console.log(this.posX)
         if (this.world.controller.kSpacePressedOnce && !this.isDeath() && !this.isAttacking) {
             this.world.controller.kSpacePressedOnce = false;
             this.isAttacking = true;

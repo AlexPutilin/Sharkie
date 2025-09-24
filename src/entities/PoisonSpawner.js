@@ -26,20 +26,9 @@ class PoisonSpawner extends Entity {
     }
 
     spawnInterval(world) {
+        this.spawn(world);
         this.intervalId = setStoppableInterval(() => {
-            this.spawn(world)
-        }, 15000); 
-        // setInterval(() => {
-        //     this.spawn(world)
-        // }, 15000);
+            this.spawn(world);
+        }, 13000); 
     }
-
-    stopInterval() {
-        if (this.intervalId) {
-            clearInterval(this.intervalId);
-            this.intervalId = null;
-            this.entered = false;
-        }
-    }
-
 }

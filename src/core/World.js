@@ -76,8 +76,6 @@ class World {
         this.poisonSpawner.forEach(spawner => {
             if (this.player.isColliding(spawner)) {
                 spawner.triggerSpawn(this);
-            } else {
-                spawner.stopInterval();
             }
         });
     }
