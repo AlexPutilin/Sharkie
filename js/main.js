@@ -29,3 +29,18 @@ function getDialogContent(dialog = "") {
             return "Something goes wrong...";
     }
 }
+
+
+function fullscreen() {
+    const fullscreen = document.getElementById('fullscreen');
+    enterFullscreen(fullscreen)
+}
+
+
+function enterFullscreen(element) {
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+    }
+}
