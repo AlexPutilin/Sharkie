@@ -6,12 +6,12 @@
 - License: MIT
 - Project type: Frontend only (open the repo and run in a browser)
 
-<h1>How to Run</h1>
+<h2>How to Run</h2>
 1. Clone the repository<br>
 2. Open index.html in your browser<br>
 <p>No build steps or dependencies required.</p>
 
-<h1>Basic Gameplay</h1>
+<h2>Basic Gameplay</h2>
 
  - Move the shark with the keyboard
  - Collect items
