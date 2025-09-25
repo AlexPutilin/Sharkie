@@ -4,6 +4,7 @@
     margin: 0;
     font-family: 'LuckiestGuy', Verdana, sans-serif;
     color: #ececec;
+    user-select: none;
 }
 
 @font-face {
@@ -95,6 +96,13 @@ main {
     background-size: cover;
 }
 
+#game-window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
 canvas {
     background-color: black;
     display: block;
@@ -115,10 +123,17 @@ button > img {
     height: 100px;
 }
 
-.btn-container {
+.btn-container-col {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 24px;
+}
+
+.btn-container-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 24px;
 }
 
@@ -152,7 +167,7 @@ footer {
 }
 
 .d-none {
-    display: none;
+    display: none !important;
 }
 
 .d-row-space {

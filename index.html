@@ -39,7 +39,7 @@
 
             <div id="menu" class="menu">
                 <h1>Sharkie</h1>
-                <div class="btn-container">
+                <div class="btn-container-col">
                     <button class="menu-btn" onclick="initGame()">Start</button>
                     <button class="menu-btn" onclick="toggleDialog('controls')">Controlls</button>
                 </div>
@@ -49,9 +49,17 @@
                 </footer>
             </div>
 
-            <div id="fullscreen">
-                <canvas id="canvas" class="d-none" width="1080" height="720"></canvas>
+            <div id="game-window" class="d-none">
+                <h1>Sharkie</h1>
+                <div id="fullscreen">
+                    <canvas id="canvas" width="1080" height="720"></canvas>
+                </div>
+                <div class="btn-container-row">
+                    <button class="menu-btn" onclick="">fullscreen</button>
+                    <button class="menu-btn" onclick="backToMenu()">Main menu</button>
+                </div>
             </div>
+            
         </main>
     </body>
 </html>
