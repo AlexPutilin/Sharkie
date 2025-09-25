@@ -30,8 +30,8 @@
     </head>
     <body>
         <main>
-            <div id="overlay" class="overlay d-none">
-                <div id="dialog">
+            <div id="overlay" class="overlay d-none" onclick="closeDialog()">
+                <div id="dialog" onclick="event.stopPropagation()">
                     <div id="dialog-content"></div>
                     <button class="menu-btn" onclick="closeDialog()">Close</button>
                 </div>
