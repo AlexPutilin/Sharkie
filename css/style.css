@@ -2,7 +2,8 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    font-family: 'LuckiestGuy';
+    font-family: 'LuckiestGuy', Verdana, sans-serif;
+    color: #ececec;
 }
 
 @font-face {
@@ -16,8 +17,70 @@ body {
 
 h1 {
     font-size: 92px;
-    color: #fff;
     margin: 24px 0px;
+}
+
+.overlay {
+    z-index: 10;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 50%);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#dialog {
+    height: 500px;
+    width: 800px;
+    padding: 24px;
+    border-radius: 24px;
+    border: 4px solid #ececec;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #51566d;
+}
+
+#dialog-content {
+    width: 100%;
+    font-size: 28px;
+}
+
+#dialog-content > h2 {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.controls-container {
+    width: 100%;
+    height: 100%;
+    padding: 0px 128px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.key-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.key {
+    min-height: 56px;
+    min-width: 56px;
+    padding: 8px;
+    text-align: center;
+    align-content: center;
+    background-color: #209db4;
+    border: 4px solid #ececec;
+    border-radius: 16px;
+    font-size: 24px; 
 }
 
 main {
@@ -34,13 +97,14 @@ main {
 
 canvas {
     background-color: black;
-    display: none;
+    display: block;
 }
 
-#menu {
-    height: 720px;
-    width: 1080px;
-    background-color: rgb(7, 40, 69);
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 56px;
 }
 
 #controlls {
@@ -61,21 +125,23 @@ button > img {
 .menu-btn {
     height: 100px;
     width: 320px;
+    text-align: center;
+    align-content: center;
     cursor: pointer;
-    color: #fff;
     background-color: #209db4;
-    border: 4px solid #fff;
+    border: 4px solid #ececec;
     border-radius: 24px;
     font-size: 48px;
 }
 
 .sub-btn {
     height: 56px;
-    width: 240px;
+    width: 256px;
+    text-align: center;
+    align-content: center;
     cursor: pointer;
-    color: #fff;
     background-color: transparent;
-    border: 4px solid #fff;
+    border: 4px solid #ececec;
     border-radius: 24px;
     font-size: 32px;
 }
@@ -85,6 +151,27 @@ footer {
     gap: 24px;
 }
 
+.d-none {
+    display: none;
+}
+
+.d-row-space {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.d-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.d-row-space > span {
+    min-width: 128px;
+}
 
 @media only screen and (max-width: 1080px) {
     canvas {

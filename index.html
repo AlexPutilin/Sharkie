@@ -5,44 +5,53 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sharkie</title>
         <link rel="stylesheet" href="./css/style.css">
-        <script src="/src/core/GameObject.js" defer></script>
-        <script src="/src/core/Entity.js" defer></script>
-        <script src="/src/core/Input.js" defer></script>
-        <script src="/src/entities/Projectile.js" defer></script>
-        <script src="/src/entities/PoisonSpawner.js" defer></script>
-        <script src="/src/items/Pickable.js" defer></script>
-        <script src="/src/items/Coin.js" defer></script>
-        <script src="/src/items/Poison.js" defer></script>
-        <script src="/src/ui/Statusbar.js" defer></script>
-        <script src="/src/ui/Healthbar.js" defer></script>
-        <script src="/src/ui/Poisonbar.js" defer></script>
-        <script src="/src/ui/Coinbar.js" defer></script>
-        <script src="/src/entities/Sharkie.js" defer></script>
-        <script src="src/entities/Whale.js" defer></script>
-        <script src="/src/entities/Jellyfish.js" defer></script>
-        <script src="/src/core/Level.js" defer></script>
-        <script src="/src/levels/Background.js" defer></script>
-        <script src="/src/levels/level1.js" defer></script>
-        <script src="/src/core/World.js" defer></script>
-        <script src="/src/game.js" defer></script>
+        <script src="./src/core/GameObject.js" defer></script>
+        <script src="./src/core/Entity.js" defer></script>
+        <script src="./src/core/Input.js" defer></script>
+        <script src="./src/entities/Projectile.js" defer></script>
+        <script src="./src/entities/PoisonSpawner.js" defer></script>
+        <script src="./src/items/Pickable.js" defer></script>
+        <script src="./src/items/Coin.js" defer></script>
+        <script src="./src/items/Poison.js" defer></script>
+        <script src="./src/ui/Statusbar.js" defer></script>
+        <script src="./src/ui/Healthbar.js" defer></script>
+        <script src="./src/ui/Poisonbar.js" defer></script>
+        <script src="./src/ui/Coinbar.js" defer></script>
+        <script src="./src/entities/Sharkie.js" defer></script>
+        <script src="./src/entities/Whale.js" defer></script>
+        <script src="./src/entities/Jellyfish.js" defer></script>
+        <script src="./src/core/Level.js" defer></script>
+        <script src="./src/levels/Background.js" defer></script>
+        <script src="./src/levels/level1.js" defer></script>
+        <script src="./src/core/World.js" defer></script>
+        <script src="./src/game.js" defer></script>
+        <script src="./js/templates.js"></script>
+        <script src="./js/main.js" defer></script>
     </head>
     <body>
         <main>
-            <h1>Sharkie</h1>
-            <div class="btn-container">
-                <button class="menu-btn">Start</button>
-                <button class="menu-btn">Controlls</button>
-                <button class="menu-btn">Full Screen</button>
-            </div>
-            
-            <div id="fullscreen">
-                <canvas id="canvas" width="1080" height="720"></canvas>
+            <div id="overlay" class="overlay d-none">
+                <div id="dialog">
+                    <div id="dialog-content"></div>
+                    <button class="menu-btn" onclick="closeDialog()">Close</button>
+                </div>
             </div>
 
-            <footer>
-                <button class="sub-btn">Credits</button>
-                <button class="sub-btn">Privat Policy</button>
-            </footer>
+            <div id="menu" class="menu">
+                <h1>Sharkie</h1>
+                <div class="btn-container">
+                    <button class="menu-btn" onclick="initGame()">Start</button>
+                    <button class="menu-btn" onclick="toggleDialog('controls')">Controlls</button>
+                </div>
+                <footer>
+                    <button class="sub-btn" onclick="toggleDialog('legal-notice')">Legal Notice</button>
+                    <button class="sub-btn" onclick="toggleDialog('private-policy')">Privacy Policy</button>
+                </footer>
+            </div>
+
+            <div id="fullscreen">
+                <canvas id="canvas" class="d-none" width="1080" height="720"></canvas>
+            </div>
         </main>
     </body>
 </html>
