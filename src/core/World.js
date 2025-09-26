@@ -6,6 +6,7 @@ class World {
     projectiles = [];
     poisons = [];
     targetCameraX = 0;
+    gameEnd = false;
 
     constructor(canvas, controller) {
         this.createInstances(canvas, controller);
@@ -34,6 +35,7 @@ class World {
             this.startPlayerLoop();
             this.startProjectileLoop();
             this.checkDestroyEnemy();
+            this.checkGameEnd();
         }, 100);
     }
 
@@ -110,6 +112,20 @@ class World {
         });
     }
 
+    checkGameEnd() {
+        if (this.player.isDeath() && !this.gameEnd) {
+            this.gameEnd = true;
+            setTimeout(() => {
+                showGameOverScreen();
+            }, 2000)
+        } else if (this.boss.isDeath() && !this.gameEnd) {
+            this.gameEnd = true;
+            setTimeout(() => {
+                showWinningScreen();
+            }, 2000)
+        }
+    }
+
     setBossToEnemies() {
         this.enemies.push(this.boss);
     }
@@ -163,7 +179,6 @@ class World {
             this.flipImg(obj);
         }
         this.ctx.drawImage(obj.img, obj.posX, obj.posY, obj.width, obj.height);
-        // this.drawRec(obj.posX + obj.collisionBox.x,obj.posY + obj.collisionBox.y, obj.collisionBox.w, obj.collisionBox.h)
         if (obj.flippedImg) {
             this.flipImgBack(obj);
         }

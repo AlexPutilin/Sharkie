@@ -16,6 +16,7 @@ function initGame() {
 
 function startGame() {
     if (world) return;
+    resetScreens();
     controller = new Input();
     initLevel();
     world = new World(canvas, controller);
@@ -34,6 +35,31 @@ function stopGame() {
 }
 
 
+function resetScreens() {
+    const winningScreen = document.getElementById('winning-screen');
+    const gameOverScreen = document.getElementById('gameover-screen');
+    if (!winningScreen.classList.contains('d-none')) toggleDisplayNone(winningScreen);
+    if (!gameOverScreen.classList.contains('d-none')) toggleDisplayNone(gameOverScreen);
+    if (canvas.classList.contains('d-none')) toggleDisplayNone(canvas);
+}
+
+
+function showWinningScreen() {
+    stopGame();
+    const winningScreen = document.getElementById('winning-screen');
+    toggleDisplayNone(canvas);
+    toggleDisplayNone(winningScreen);
+}
+
+
+function showGameOverScreen() {
+    stopGame();
+    const gameOverScreen = document.getElementById('gameover-screen');
+    toggleDisplayNone(canvas);
+    toggleDisplayNone(gameOverScreen);
+}
+
+
 function backToMenu() {
     const gameWindow = document.getElementById('game-window');
     const menu = document.getElementById('menu');
@@ -44,6 +70,7 @@ function backToMenu() {
 
 
 window.addEventListener('keydown', (e) => {
+    if (!controller) return;
     if (e.key === "ArrowLeft") controller.kLeft = true;
     if (e.key === "ArrowUp") controller.kUp = true;
     if (e.key === "ArrowRight") controller.kRight = true;
@@ -56,6 +83,7 @@ window.addEventListener('keydown', (e) => {
 
 
 window.addEventListener('keyup', (e) => {
+    if (!controller) return;
     if (e.key === "ArrowLeft") controller.kLeft = false;
     if (e.key === "ArrowUp") controller.kUp = false;
     if (e.key === "ArrowRight") controller.kRight = false;

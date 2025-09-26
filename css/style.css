@@ -126,6 +126,29 @@ button > img {
     height: 100px;
 }
 
+#winning-screen, #gameover-screen {
+    min-height: 720px;
+    min-width: 1080px;
+    padding: 48px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+#winning-screen {
+    background-image: url('../assets/imgs/titles/win-screen.png');
+    background-size: cover;
+    background-position: center;
+}
+
+#gameover-screen {
+    /* background-color: #121216; */
+    background-image: url('../assets/imgs/titles/title_gameover.png');
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .btn-container-col {
     display: flex;
     flex-direction: column;
@@ -194,13 +217,13 @@ footer {
 }
 
 @media only screen and (max-width: 1080px) {
-    canvas {
+    #game-window {
         width: 100%;
     }
 }
 
 @media only screen and (max-height: 720px) {
-    canvas {
+    #game-window {
         height: 100vh;
     }   
 }

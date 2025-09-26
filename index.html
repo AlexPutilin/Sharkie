@@ -52,7 +52,17 @@
             <div id="game-window" class="d-none">
                 <h1>Sharkie</h1>
                 <div id="fullscreen">
-                    <canvas id="canvas" width="1080" height="720"></canvas>
+                    <canvas id="canvas" class="" width="1080" height="720"></canvas>
+                    <div id="winning-screen" class="d-none">
+                        <div class="btn-container-row">
+                            <button class="menu-btn" onclick="startGame()">Play again</button>
+                        </div>
+                    </div>
+                    <div id="gameover-screen" class="d-none">
+                        <div class="btn-container-row">
+                            <button class="menu-btn" onclick="startGame()">Play again</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="btn-container-row">
                     <button class="menu-btn" onclick="fullscreen()">fullscreen</button>
