@@ -1,3 +1,5 @@
+window.addEventListener('resize', updateScreenMessageVisibility);
+
 function toggleDisplayNone(element) {
     element.classList.toggle('d-none');
 }
@@ -42,5 +44,18 @@ function enterFullscreen(element) {
         element.requestFullscreen();
     } else if (element.webkitRequestFullscreen) {
         element.webkitRequestFullscreen();
+    }
+}
+
+
+function updateScreenMessageVisibility() {
+    const gameWindow = document.getElementById('game-window');
+    const screenMessage = document.getElementById('screen-message');
+    const isPortrait = window.innerWidth < window.innerHeight && window.innerWidth <= 1080;
+    const isGameActive = !gameWindow.classList.contains('d-none');
+    if (isGameActive && isPortrait) {
+        screenMessage.style.display = 'flex';
+    } else {
+        screenMessage.style.display = 'none';
     }
 }

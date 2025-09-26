@@ -17,7 +17,7 @@ function getControlsTemplate() {
             </div>
             <div class="d-row-space">
                 <div class="key-wrapper">
-                    <div class="key" style="width: 208px;">Spacebar</div>
+                    <div class="key spacebar">Spacebar</div>
                 </div>
                 <span>Attack</span>
             </div>

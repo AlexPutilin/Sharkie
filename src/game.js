@@ -11,6 +11,7 @@ function initGame() {
     toggleDisplayNone(menu);
     toggleDisplayNone(gameWindow);
     startGame();
+    updateScreenMessageVisibility();
 }
 
 
@@ -66,6 +67,7 @@ function backToMenu() {
     stopGame();
     toggleDisplayNone(menu);
     toggleDisplayNone(gameWindow);
+    updateScreenMessageVisibility();
 }
 
 

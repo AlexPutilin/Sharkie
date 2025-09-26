@@ -85,6 +85,10 @@ h1 {
     font-size: 32px; 
 }
 
+.spacebar {
+    width: 208px;
+}
+
 main {
     height: 100%;
     display: flex;
@@ -101,6 +105,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 24px;
 }
 
@@ -137,12 +142,12 @@ button > img {
 
 #winning-screen {
     background-image: url('../assets/imgs/titles/win-screen.png');
-    background-size: cover;
+    background-size: 100%;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 #gameover-screen {
-    /* background-color: #121216; */
     background-image: url('../assets/imgs/titles/title_gameover.png');
     background-size: 80%;
     background-position: center;
@@ -216,14 +221,165 @@ footer {
     min-width: 128px;
 }
 
+#screen-message {
+    width: 100%;
+    height: 100vh;
+    padding: 16px;
+    position: fixed;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    background-color: #242424;
+    font-size: 16px;
+    text-align: center;
+}
+
 @media only screen and (max-width: 1080px) {
     #game-window {
         width: 100%;
     }
+    #game-window > h1 {
+        display: none;
+    }
+    #winning-screen, #gameover-screen {
+        min-width: 100%;
+        padding: 24px;
+    }
+    canvas {
+        width: 100%;
+    }
+    #btn-desktop {
+        display: none;
+    }
+    #dialog {
+        height: auto;
+        width: 800px;
+        padding: 24px;
+        gap: 40px;
+    }
+    .controls-container {
+        padding-top: 0px;
+    }
+    .d-row-space {
+        padding: 0px 32px;
+        justify-content: space-between;
+        gap: 0px
+    }
 }
 
-@media only screen and (max-height: 720px) {
+@media only screen and (max-height: 1024px) {
     #game-window {
         height: 100vh;
-    }   
+    }
+    #game-window > h1 {
+        display: none;
+    }
+    #winning-screen, #gameover-screen {
+        min-height: 100vh;
+        min-width: 100%;
+        padding: 32px;
+    }
+    canvas {
+        height: 100vh;
+    }
+    #btn-desktop {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    #dialog {
+        height: 100vh;
+        width: 100%;
+        padding: 24px;
+        gap: 24px;
+    }
+    #dialog-content {
+        font-size: 24px;
+    }
+    .d-row-space {
+        padding: 0px 16px;
+    }
+    .d-row-space > span {
+        min-width: 92px;
+    }
+    footer {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 476px) {
+    #dialog-content {
+        font-size: 16px;
+    }
+    .menu-btn {
+        height: 72px;
+        width: 200px;
+        border-radius: 16px;
+        border: 2px solid #ececec;
+        font-size: 32px;
+    }
+    .sub-btn {
+        height: 48px;
+        width: 192px;
+        border: 2px solid #ececec;
+        border-radius: 16px;
+        font-size: 24px;
+    }
+    h1 {
+        font-size: 72px;
+        margin: 0px;
+    }
+    .key {
+        min-height: 48px;
+        min-width: 48px;
+        padding: 8px;
+        border-radius: 12px;
+        border: 2px solid #ececec;
+        font-size: 24px; 
+    }
+    .spacebar {
+        width: 160px;
+    }
+    .d-row-space {
+        padding: 0;
+    }
+    .d-row-space > span {
+        min-width: 56px;
+    }
+}
+
+@media only screen and (max-height: 476px) {
+    h1 {
+        font-size: 56px;
+        margin: 0px;
+    }
+    .menu {
+        gap: 32px;
+    }
+    .btn-container-col {
+        flex-direction: row;
+    }
+    #dialog-content {
+        font-size: 16px;
+    }
+    .menu-btn {
+        height: 72px;
+        width: 200px;
+        border-radius: 16px;
+        border: 2px solid #ececec;
+        font-size: 32px;
+    }
+    .sub-btn {
+        height: 48px;
+        width: 192px;
+        border: 2px solid #ececec;
+        border-radius: 16px;
+        font-size: 24px;
+    }
+    footer {
+        flex-direction: row;
+    }
 }
