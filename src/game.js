@@ -39,15 +39,19 @@ function stopGame() {
 function resetScreens() {
     const winningScreen = document.getElementById('winning-screen');
     const gameOverScreen = document.getElementById('gameover-screen');
+    const hud = document.getElementById('hud');
     if (!winningScreen.classList.contains('d-none')) toggleDisplayNone(winningScreen);
     if (!gameOverScreen.classList.contains('d-none')) toggleDisplayNone(gameOverScreen);
     if (canvas.classList.contains('d-none')) toggleDisplayNone(canvas);
+    if (hud.classList.contains('d-none')) toggleDisplayNone(hud);
 }
 
 
 function showWinningScreen() {
     stopGame();
     const winningScreen = document.getElementById('winning-screen');
+    const hud = document.getElementById('hud');
+    toggleDisplayNone(hud);
     toggleDisplayNone(canvas);
     toggleDisplayNone(winningScreen);
 }
@@ -56,6 +60,8 @@ function showWinningScreen() {
 function showGameOverScreen() {
     stopGame();
     const gameOverScreen = document.getElementById('gameover-screen');
+    const hud = document.getElementById('hud');
+    toggleDisplayNone(hud);
     toggleDisplayNone(canvas);
     toggleDisplayNone(gameOverScreen);
 }

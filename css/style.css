@@ -109,9 +109,13 @@ main {
     gap: 24px;
 }
 
+#fullscreen {
+    position: relative;
+    width: 1080px;
+    height: 720px;
+}
+
 canvas {
-    height: 100%;
-    width: 100%;
     background-color: black;
     display: block;
 }
@@ -234,9 +238,63 @@ footer {
     background-color: #242424;
     font-size: 16px;
     text-align: center;
+    z-index: 100;
+}
+
+.btn-move-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.mobile-key {
+    height: 40px;
+    min-width: 40px;
+    padding: 0 8px;
+    text-align: center;
+    background-color: #209db4;
+    border: 2px solid #ececec;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+#hud {
+    height: 100%;
+    width: 100%;
+    padding: 16px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.hud-up-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.hud-down-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+button {
+    pointer-events: auto;
 }
 
 @media only screen and (max-width: 1080px) {
+    #fullscreen {
+        width: 100%;
+    }
     #game-window {
         width: 100%;
     }
@@ -270,6 +328,9 @@ footer {
 }
 
 @media only screen and (max-height: 1024px) {
+    #fullscreen {
+        height: 100vh;
+    }
     #game-window {
         height: 100vh;
     }
