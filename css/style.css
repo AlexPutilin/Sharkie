@@ -12,6 +12,10 @@
     src: url('../assets/fonts/LuckiestGuy-Regular.ttf');
 }
 
+button {
+    cursor: pointer;
+}
+
 body {
     height: 100vh;
 }
@@ -269,6 +273,10 @@ footer {
     border: 2px solid #ececec;
     border-radius: 8px;
     font-size: 16px;
+}
+
+.game-key:hover, .menu-btn:hover {
+    background-color: #4dbfd3;
 }
 
 @media only screen and (max-width: 1080px) {

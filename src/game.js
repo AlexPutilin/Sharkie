@@ -19,6 +19,7 @@ function startGame() {
     if (world) return;
     resetScreens();
     controller = new Input();
+    initControls();
     initLevel();
     world = new World(canvas, controller);
 }
@@ -77,7 +78,19 @@ function backToMenu() {
 }
 
 
-window.addEventListener('keydown', (e) => {
+function initControls() {
+    setupKeyboardControls();
+    setupMobileControls();
+}
+
+
+function setupKeyboardControls() {
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+}
+
+
+function handleKeyDown(e) {
     if (!controller) return;
     if (e.key === "ArrowLeft") controller.kLeft = true;
     if (e.key === "ArrowUp") controller.kUp = true;
@@ -87,17 +100,57 @@ window.addEventListener('keydown', (e) => {
         controller.kSpace = true;
         controller.kSpacePressedOnce = true;
     }
-});
+}
 
 
-window.addEventListener('keyup', (e) => {
+function handleKeyUp(e) {
     if (!controller) return;
     if (e.key === "ArrowLeft") controller.kLeft = false;
     if (e.key === "ArrowUp") controller.kUp = false;
     if (e.key === "ArrowRight") controller.kRight = false;
     if (e.key === "ArrowDown") controller.kDown = false;
-    if (e.key === " ") {controller.kSpace = false;}
-});
+    if (e.key === " ") controller.kSpace = false;
+}
+
+
+function setupMobileControls() {
+    const btns = [
+        { id: 'mobile-btn-up',    prop: 'kUp' },
+        { id: 'mobile-btn-down',  prop: 'kDown' },
+        { id: 'mobile-btn-left',  prop: 'kLeft' },
+        { id: 'mobile-btn-right', prop: 'kRight' },
+        { id: 'mobile-btn-space', prop: 'kSpace', isSpace: true }
+    ];
+    btns.forEach(({ id, prop, isSpace }) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        addMobileEvents(btn, prop, isSpace);
+    });
+}
+
+
+function addMobileEvents(btn, prop, isSpace) {
+    btn.addEventListener('touchstart', (e) => handleMobileDown(e, prop, isSpace));
+    btn.addEventListener('touchend', (e) => handleMobileUp(e, prop));
+    btn.addEventListener('mousedown', (e) => handleMobileDown(e, prop, isSpace));
+    btn.addEventListener('mouseup', (e) => handleMobileUp(e, prop));
+    btn.addEventListener('mouseleave', () => handleMobileUp(null, prop));
+}
+
+
+function handleMobileDown(e, prop, isSpace) {
+    if (e) e.preventDefault();
+    if (!controller) return;
+    controller[prop] = true;
+    if (isSpace) controller.kSpacePressedOnce = true;
+}
+
+
+function handleMobileUp(e, prop) {
+    if (e) e.preventDefault();
+    if (!controller) return;
+    controller[prop] = false;
+}
 
 
 function setStoppableInterval(fn, ms) {
