@@ -33,21 +33,6 @@ function getDialogContent(dialog = "") {
 }
 
 
-function fullscreen() {
-    const fullscreen = document.getElementById('fullscreen');
-    enterFullscreen(fullscreen)
-}
-
-
-function enterFullscreen(element) {
-    if (element.requestFullscreen) {
-        element.requestFullscreen();
-    } else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen();
-    }
-}
-
-
 function updateScreenMessageVisibility() {
     const gameWindow = document.getElementById('game-window');
     const screenMessage = document.getElementById('screen-message');
