@@ -1,5 +1,11 @@
 window.addEventListener('resize', updateScreenMessageVisibility);
 
+
+window.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+
 function toggleDisplayNone(element) {
     element.classList.toggle('d-none');
 }

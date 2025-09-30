@@ -192,7 +192,6 @@ class World {
             this.flipImg(obj);
         }
         this.ctx.drawImage(obj.img, obj.posX, obj.posY, obj.width, obj.height);
-        this.drawRec(obj.posX + obj.collisionBox.x, obj.posY + obj.collisionBox.y, obj.collisionBox.w, obj.collisionBox.h);
         if (obj.flippedImg) {
             this.flipImgBack(obj);
         }
@@ -212,6 +211,7 @@ class World {
 
 
     // DEBUG:
+    // this.drawRec(obj.posX + obj.collisionBox.x, obj.posY + obj.collisionBox.y, obj.collisionBox.w, obj.collisionBox.h);
     drawRec(x, y, w, h) {
         this.ctx.beginPath();
         this.ctx.lineWidth = 4;
