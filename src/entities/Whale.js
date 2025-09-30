@@ -59,7 +59,7 @@ class Whale extends Entity {
     constructor(world) {
         super(4000, 0, 300, 300);
         this.world = world;
-        this.speed = 0.3;
+        this.speed = 0.5;
         this.life = 300;
         this.collisionBox = {x: -20 , y: 100, w: 300, h: 150};
         this.loadSpriteCache(this.introSprites);

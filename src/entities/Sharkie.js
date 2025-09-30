@@ -89,7 +89,7 @@ class Sharkie extends Entity {
     constructor(world) {
         super(0, 200, 200, 200);
         this.world = world
-        this.speed = 2;
+        this.speed = 4;
         this.collisionBox = {x: 40 , y: 100, w: 120, h: 60};
         this.loadSpriteCache(this.idleSprites);
         this.loadSpriteCache(this.swimSprites);

@@ -23,7 +23,7 @@ class Jellyfish extends Entity {
     constructor(...args) {
         super(...args);
         this.collisionBox = {x: 5 , y: 5, w: 90, h: 90};
-        this.speed = 0.5 + Math.random() * 1;
+        this.speed = 1 + Math.random() * 1.2;
         this.loadSpriteCache(this.swimSprites);
         this.loadSpriteCache(this.hitSprites);
         this.loadSpriteCache(this.deathSprites);
