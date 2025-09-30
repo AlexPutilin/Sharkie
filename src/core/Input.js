@@ -3,6 +3,8 @@ class Input {
     kDown;
     kRight;
     kLeft;
-    kSpace;
-    kSpacePressedOnce;
+    kY;
+    kX;
+    kYPressedOnce;
+    kXPressedOnce;
 }

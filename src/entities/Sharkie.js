@@ -30,7 +30,7 @@ class Sharkie extends Entity {
         'assets/sprites/sharkie/swim/sharkie_swim_5.png',
         'assets/sprites/sharkie/swim/sharkie_swim_6.png',
     ];
-    attackSprites = [
+    attackBubbleSprites = [
         'assets/sprites/sharkie/attack/bubble/sharkie_attack_bubble_1.png',
         'assets/sprites/sharkie/attack/bubble/sharkie_attack_bubble_2.png',
         'assets/sprites/sharkie/attack/bubble/sharkie_attack_bubble_3.png',
@@ -50,6 +50,16 @@ class Sharkie extends Entity {
         'assets/sprites/sharkie/attack/bubble_poisoned/sharkie_attack_bubble_poison_7.png',
         'assets/sprites/sharkie/attack/bubble_poisoned/sharkie_attack_bubble_poison_8.png',
     ];
+    attackSlapSprites = [
+        'assets/sprites/sharkie/attack/slap/sharkie_attack_slap_1.png',
+        'assets/sprites/sharkie/attack/slap/sharkie_attack_slap_2.png',
+        'assets/sprites/sharkie/attack/slap/sharkie_attack_slap_3.png',
+        'assets/sprites/sharkie/attack/slap/sharkie_attack_slap_4.png',
+        'assets/sprites/sharkie/attack/slap/sharkie_attack_slap_5.png',
+        'assets/sprites/sharkie/attack/slap/sharkie_attack_slap_6.png',
+        'assets/sprites/sharkie/attack/slap/sharkie_attack_slap_7.png',
+        'assets/sprites/sharkie/attack/slap/sharkie_attack_slap_8.png',
+    ];
     hurtShockedSprites = [
         'assets/sprites/sharkie/hurt/shocked/sharkie_hurt_shocked_1.png',
         'assets/sprites/sharkie/hurt/shocked/sharkie_hurt_shocked_2.png',
@@ -68,7 +78,8 @@ class Sharkie extends Entity {
         'assets/sprites/sharkie/dead/shocked/sharkie_dead_shocked_10.png',
     ];
     flippedImg = false;
-    isAttacking = false;
+    isSlapAttacking = false;
+    isBubbleAttacking = false;
     isProjectileSpawned = false;
     poisonBuff = false;
     bossFight = false;
@@ -82,7 +93,8 @@ class Sharkie extends Entity {
         this.collisionBox = {x: 40 , y: 100, w: 120, h: 60};
         this.loadSpriteCache(this.idleSprites);
         this.loadSpriteCache(this.swimSprites);
-        this.loadSpriteCache(this.attackSprites);
+        this.loadSpriteCache(this.attackBubbleSprites);
+        this.loadSpriteCache(this.attackSlapSprites);
         this.loadSpriteCache(this.attackPoisonedSprites);
         this.loadSpriteCache(this.hurtShockedSprites);
         this.loadSpriteCache(this.deadShockedSprites);
@@ -99,9 +111,13 @@ class Sharkie extends Entity {
     }
 
     handleInputs() {
-        if (this.world.controller.kSpacePressedOnce && !this.isDeath() && !this.isAttacking) {
-            this.world.controller.kSpacePressedOnce = false;
-            this.isAttacking = true;
+        if (this.world.controller.kYPressedOnce && !this.isDeath() && !this.isAttacking) {
+            this.world.controller.kYPressedOnce = false;
+            this.isBubbleAttacking = true;
+        }
+        if (this.world.controller.kXPressedOnce && !this.isDeath() && !this.isAttacking) {
+            this.world.controller.kXPressedOnce = false;
+            this.isSlapAttacking = true;
         }
         if (this.posX >= this.bossAreaStart && this.posX <= this.bossAreaEnd) {
             this.movementOnBossArea();
@@ -138,12 +154,13 @@ class Sharkie extends Entity {
 
     handleAnimation() {
         if (this.isDeath()) this.playAnimation(this.deadShockedSprites, false);
-        else if (this.isAttacking) {
-            this.playAnimation(this.poisonBuff ? this.attackPoisonedSprites : this.attackSprites, false, () => {
-                this.isAttacking = false;
+        else if (this.isBubbleAttacking) {
+            this.playAnimation(this.poisonBuff ? this.attackPoisonedSprites : this.attackBubbleSprites, false, () => {
+                this.isBubbleAttacking = false;
                 this.spawnProjectile();
             });
         }
+        else if (this.isSlapAttacking) this.playAnimation(this.attackSlapSprites, false, () => this.isSlapAttacking = false);
         else if (this.isHit) this.playAnimation(this.hurtShockedSprites);
         else if (this.world.controller.kRight || this.world.controller.kLeft) this.playAnimation(this.swimSprites);
         else if (this.world.controller.kUp || this.world.controller.kDown) this.playAnimation(this.swimSprites);

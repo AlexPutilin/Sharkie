@@ -17,10 +17,16 @@ function getControlsTemplate() {
             </div>
             <div class="d-row-space">
                 <div class="key-wrapper">
-                    <div class="key spacebar">Spacebar</div>
+                    <div class="key">Y</div>
                 </div>
-                <span>Attack</span>
+                <span>Bubble-Attack</span>
             </div>
+            <div class="d-row-space">
+                <div class="key-wrapper">
+                    <div class="key">X</div>
+                </div>
+                <span>Slap-Attack</span>
+            </div>    
         </div>
     `
 }

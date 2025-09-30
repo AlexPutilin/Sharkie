@@ -49,8 +49,12 @@ class World {
     checkPlayerIsCollidingEnemy() {
         this.enemies.forEach(enemy => {
             if (this.player.isColliding(enemy)) {
-                this.player.getHit(20);
-                enemy.onCollision();
+                if (this.player.isSlapAttacking) {
+                    enemy.getHit(100);
+                } else {
+                    this.player.getHit(20);
+                    enemy.onCollision();
+                }
             }
         });
     }
