@@ -92,8 +92,8 @@ class Whale extends Entity {
             this.move("left");
             this.flippedImg = false;
         }
-        if (player.posY > this.posY) this.move("down");
-        else if (player.posY < this.posY) this.move("up");
+        if (player.posY > this.posY + 50) this.move("down");
+        else if (player.posY < this.posY + 50) this.move("up");
     }
 
     handleAnimation() {
