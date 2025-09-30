@@ -18,8 +18,4 @@ class Pickable extends Entity {
         }
         requestAnimationFrame((t) => this.animationLoop(t));
     }
-
-    // collect() {
-    //     this.world.coinbar.reduceStatusbar();
-    // }
 }
