@@ -130,26 +130,30 @@ function setupMobileControls() {
 
 
 function addMobileEvents(btn, prop, isSpace) {
-    btn.addEventListener('touchstart', (e) => handleMobileDown(e, prop, isSpace));
-    btn.addEventListener('touchend', (e) => handleMobileUp(e, prop));
-    btn.addEventListener('mousedown', (e) => handleMobileDown(e, prop, isSpace));
-    btn.addEventListener('mouseup', (e) => handleMobileUp(e, prop));
-    btn.addEventListener('mouseleave', () => handleMobileUp(null, prop));
+    btn.addEventListener('touchstart', (e) => handleMobileDown(e, btn, prop, isSpace));
+    btn.addEventListener('touchend', (e) => handleMobileUp(e, btn, prop));
+    btn.addEventListener('pointerdown', (e) => handleMobileDown(e, btn, prop, isSpace));
+    btn.addEventListener('pointerup', (e) => handleMobileUp(e, btn, prop));
+    btn.addEventListener('pointercancel', () => handleMobileUp(null, btn, prop));
+    btn.addEventListener('mousedown', (e) => handleMobileDown(e, btn, prop, isSpace));
+    btn.addEventListener('mouseup', (e) => handleMobileUp(e, btn, prop));
+    btn.addEventListener('mouseleave', () => handleMobileUp(null, btn, prop));
 }
 
 
-function handleMobileDown(e, prop, isSpace) {
-    if (e) e.preventDefault();
+function handleMobileDown(e, btn, prop, isSpace) {
     if (!controller) return;
     controller[prop] = true;
+    btn.classList.add('game-key-pressed');
     if (isSpace) controller.kSpacePressedOnce = true;
 }
 
 
-function handleMobileUp(e, prop) {
+function handleMobileUp(e, btn, prop) {
     if (e) e.preventDefault();
     if (!controller) return;
     controller[prop] = false;
+    btn.classList.remove('game-key-pressed');
 }
 
 
