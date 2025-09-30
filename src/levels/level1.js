@@ -32,12 +32,12 @@ function initLevel() {
             new Background(4319, 0, 1080, 720, 'assets/imgs/background/background_layer3_1.png'),
         ],
         [
-            new Jellyfish(1100, 100, 100, 100),
-            new Jellyfish(1300, 400, 100, 100),
-            new Jellyfish(2200, 300, 100, 100),
-            new Jellyfish(2300, 200, 100, 100),
-            new Jellyfish(3300, 500, 100, 100),
-            new Jellyfish(3500, 350, 100, 100),
+            new Jellyfish(1100, 360, 100, 100),
+            new Jellyfish(1400, 360, 100, 100),
+            new Jellyfish(2000, 360, 100, 100),
+            new Jellyfish(2700, 360, 100, 100),
+            new Jellyfish(3300, 360, 100, 100),
+            new Jellyfish(3500, 360, 100, 100),
         ],
         [
             new Coin(500, 500),
