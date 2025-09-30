@@ -55,8 +55,17 @@ class World {
                     this.player.getHit(20);
                     enemy.onCollision();
                 }
+                this.checkIsShocked(enemy);
             }
         });
+    }
+
+    checkIsShocked(enemy) {
+        if (enemy instanceof Jellyfish) {
+            this.player.isShocked = true;
+        } else {
+            this.player.isShocked = false;
+        }
     }
 
     checkPlayerIsCollidingCoins() {
@@ -183,6 +192,7 @@ class World {
             this.flipImg(obj);
         }
         this.ctx.drawImage(obj.img, obj.posX, obj.posY, obj.width, obj.height);
+        this.drawRec(obj.posX + obj.collisionBox.x, obj.posY + obj.collisionBox.y, obj.collisionBox.w, obj.collisionBox.h);
         if (obj.flippedImg) {
             this.flipImgBack(obj);
         }

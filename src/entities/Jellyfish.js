@@ -19,14 +19,13 @@ class Jellyfish extends Entity {
         'assets/sprites/enemy/jellyfish/dead/jellyfish_dead_3.png',
         'assets/sprites/enemy/jellyfish/dead/jellyfish_dead_4.png',
     ];
-    verticalDirection = "up";
     
     constructor(...args) {
         super(...args);
         this.collisionBox = {x: 5 , y: 5, w: 90, h: 90};
         this.speed = 1 + Math.random() * 1.2;
-        this.verticalRange = 150 + Math.random() * 150;
-        this.verticalDirection = Math.random() < 0.5 ? 'up' : 'down';
+        this.movementRange = 150 + Math.random() * 150;
+        this.direction = Math.random() < 0.5 ? 'up' : 'down';
         this.startY = this.posY;
         this.loadSpriteCache(this.swimSprites);
         this.loadSpriteCache(this.hitSprites);
@@ -44,16 +43,24 @@ class Jellyfish extends Entity {
     }
 
     handleMovement() {
-        if (this.verticalDirection === 'up') {
-            this.move("up");
-            if (this.posY < this.startY - this.verticalRange) {
-                this.verticalDirection = 'down';
-            }
+        if (this.direction === 'up') {
+            this.moveUp();
         } else {
-            this.move("down");
-            if (this.posY > this.startY + this.verticalRange) {
-                this.verticalDirection = 'up';
-            }
+            this.moveDown();
+        }
+    }
+
+    moveUp() {
+        this.move("up");
+        if (this.posY < this.startY - this.movementRange) {
+            this.direction = 'down';
+        }
+    }
+
+    moveDown() {
+        this.move("down");
+        if (this.posY > this.startY + this.movementRange) {
+            this.direction = 'up';
         }
     }
 

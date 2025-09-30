@@ -52,12 +52,12 @@ class Whale extends Entity {
     flippedImg = false;
     isIntroDone = false;
     isActive = false;
-    bossAreaStart = 3200;
-    bossAreaEnd = 4500;
+    bossAreaStart = 4320;
+    bossAreaEnd = 5500;
     world;
 
     constructor(world) {
-        super(4000, 0, 300, 300);
+        super(5080, 0, 300, 300);
         this.world = world;
         this.speed = 0.5;
         this.life = 300;

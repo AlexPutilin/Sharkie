@@ -33,9 +33,11 @@ function initLevel() {
         ],
         [
             new Jellyfish(1100, 360, 100, 100),
-            new Jellyfish(1400, 360, 100, 100),
+            new Pufferfish(1400, 200, 100, 70),
             new Jellyfish(2000, 360, 100, 100),
+            new Pufferfish(2400, 400, 100, 70),
             new Jellyfish(2700, 360, 100, 100),
+            new Pufferfish(3000, 600, 100, 70),
             new Jellyfish(3300, 360, 100, 100),
             new Jellyfish(3500, 360, 100, 100),
         ],
@@ -49,7 +51,7 @@ function initLevel() {
         [
             new PoisonSpawner(1000, 0, 200, 720, false),
             new PoisonSpawner(2000, 0, 200, 720, false),
-            new PoisonSpawner(3240, 0, 1080, 720, true),
+            new PoisonSpawner(4320, 0, 1080, 720, true),
         ]
     );
 }
