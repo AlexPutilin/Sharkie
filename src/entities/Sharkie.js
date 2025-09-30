@@ -110,7 +110,6 @@ class Sharkie extends Entity {
     }
 
     animationLoop(timestamp = 0) {
-        console.log(this.posX)
         this.handleInputs();
         if(timestamp - this.lastAnimationTime > this.animationInterval) {
             this.handleAnimation();
