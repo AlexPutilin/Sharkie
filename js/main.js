@@ -1,9 +1,9 @@
 window.addEventListener('resize', updateScreenMessageVisibility);
 
 
-window.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
+// window.addEventListener('contextmenu', function(e) {
+//     e.preventDefault();
+// });
 
 /**
  * Toggles the "d-none" CSS class on a given element,

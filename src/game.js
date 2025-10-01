@@ -9,16 +9,29 @@ registerSound([backgroundAudio]);
 
 /**
  * Initializes the game by setting up the canvas, toggling menus, and starting the game loop.
- * @returns {void}
  */
 function initGame() {
     canvas = document.getElementById('canvas');
     const gameWindow = document.getElementById('game-window');
     const menu = document.getElementById('menu');
+    loadLocalStorage();
+    initSounds();
     toggleDisplayNone(menu);
     toggleDisplayNone(gameWindow);
     startGame();
     updateScreenMessageVisibility();
+}
+
+/**
+ * Initializes the soundstate.
+ */
+function initSounds() {
+    const btn = document.getElementById('btn-mute');
+    if (soundsMuted) {
+        muteSounds(btn);
+    } else {
+        unmuteSounds(btn);
+    }
 }
 
 /**
@@ -219,6 +232,7 @@ function addMobileEvents(btn, prop, isY, isX) {
     btn.addEventListener('mousedown', (e) => handleMobileDown(e, btn, prop, isY, isX));
     btn.addEventListener('mouseup', (e) => handleMobileUp(e, btn, prop));
     btn.addEventListener('mouseleave', () => handleMobileUp(null, btn, prop));
+    btn.addEventListener('contextmenu', (e) => e.preventDefault());
 }
 
 /**
@@ -275,6 +289,10 @@ function stopIntervals() {
     intervalIds.forEach(clearInterval);
 }
 
+function loadLocalStorage() {
+    soundsMuted = JSON.parse(localStorage.getItem("mute")) || false;
+}
+
 /**
  * Registers one or more audio elements for sound effect management.
  * Applies the current mute state to them.
@@ -292,16 +310,39 @@ function registerSound(audios = []) {
  * Toggles sound effects on or off.
  * Updates the mute button's state and adjusts audio volumes accordingly.
  * @param {HTMLElement} btn - The mute button element.
- * @returns {void}
  */
 function toggleSounds(btn) {
     if (soundsMuted) {
         btn.classList.remove('btn-mute-active');
         soundEffects.forEach(audio => audio.volume = 1);
         soundsMuted = false;
+        localStorage.setItem("mute", JSON.stringify(soundsMuted));
     } else {
         btn.classList.add('btn-mute-active');
         soundEffects.forEach(audio => audio.volume = 0);
         soundsMuted = true;
+        localStorage.setItem("mute", JSON.stringify(soundsMuted));
     }
+}
+
+/**
+ * mute sound effects.
+ * Updates the mute button's state and adjusts audio volumes accordingly.
+ * @param {HTMLElement} btn - The mute button element.
+ */
+function muteSounds(btn) {
+    btn.classList.add('btn-mute-active');
+    soundEffects.forEach(audio => audio.volume = 0);
+    localStorage.setItem("Soundsetting", soundsMuted);
+}
+
+/**
+ * unmute sound effects.
+ * Updates the mute button's state and adjusts audio volumes accordingly.
+ * @param {HTMLElement} btn - The mute button element.
+ */
+function unmuteSounds(btn) {
+    btn.classList.remove('btn-mute-active');
+    soundEffects.forEach(audio => audio.volume = 1);
+    localStorage.setItem("Soundsetting", soundsMuted);
 }
