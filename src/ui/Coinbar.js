@@ -8,6 +8,10 @@ class Coinbar extends Statusbar {
         'assets/imgs/bars/coin/bar_coin_100.png'
     ];
 
+    /**
+     * Creates a new Coinbar instance at a fixed position in the HUD.
+     * Loads the initial image based on the current status index.
+     */
     constructor() {
         super(20, 100, 220, 60);
         this.loadImg(this.statusBarImgs[this.statusBarIndex]);

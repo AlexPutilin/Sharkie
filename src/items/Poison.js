@@ -1,4 +1,9 @@
-class Poison extends Pickable {    
+class Poison extends Pickable {
+    /**
+     * Creates a new poison at the given position.
+     * @param {number} x - The x-coordinate of the poison.
+     * @param {number} y - The y-coordinate of the poison.
+     */  
     constructor(x, y) {
         super(x, y, [
             'assets/sprites/poison/poison_1.png',
@@ -15,6 +20,11 @@ class Poison extends Pickable {
         this.update();
     }
 
+    /**
+     * Starts the downward movement of the poison item.
+     * Updates the vertical position at a constant speed using a stoppable interval.
+     * @returns {void}
+     */
     update() {
         this.speed = 1;
         setStoppableInterval(() => {

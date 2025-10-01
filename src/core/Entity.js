@@ -9,10 +9,18 @@ class Entity extends GameObject {
     isHit = false;
     isAudioPlaying = false;
 
+    /**
+     * Creates a new Entity instance.
+     * @param {...any} args Arguments passed to the GameObject constructor.
+     */
     constructor(...args) {
         super(...args);
     }
 
+    /**
+     * Loads sprite images into the cache from given paths.
+     * @param {string[]} arr Array of image paths.
+     */
     loadSpriteCache(arr) {
         arr.forEach(path => {
             let img = new Image();
@@ -21,6 +29,12 @@ class Entity extends GameObject {
         });
     }
 
+    /**
+     * Plays an animation sequence from the given sprites.
+     * @param {string[]} sprites Array of sprite paths.
+     * @param {boolean} [loop=true] Whether to loop the animation.
+     * @param {Function|null} [onEnd=null] Callback when animation ends (if not looping).
+     */
     playAnimation(sprites, loop = true, onEnd = null) {
         this.resetAnimationIndex(sprites);
         let path = sprites[this.currentSpriteIndex];
@@ -36,6 +50,10 @@ class Entity extends GameObject {
         }
     }
 
+    /**
+     * Resets the animation index if the sprite sequence has changed.
+     * @param {string[]} sprites Array of sprite paths.
+     */
     resetAnimationIndex(sprites) {
         if (this.currentSprites !== sprites) {
             this.currentSprites = sprites;
@@ -43,6 +61,10 @@ class Entity extends GameObject {
         }
     }
 
+    /**
+     * Plays an audio effect if not already playing.
+     * @param {HTMLAudioElement} audio Audio element to play.
+     */
     playAudioFx(audio) {
         if (this.isAudioPlaying) return;
         this.isAudioPlaying = true;
@@ -54,12 +76,11 @@ class Entity extends GameObject {
         }, 1000);
     }
 
-    addSounds(audio) {
-        if (typeof registerSound === 'function') {
-            registerSound(audio);
-        }
-    }
-
+    /**
+     * Moves the entity in the specified direction.
+     * @param {"right"|"left"|"up"|"down"} direction Direction to move.
+     * @returns {number} New position value.
+     */
     move(direction) {
         if (direction === "right") return this.posX += this.speed;
         if (direction === "left") return this.posX -= this.speed;
@@ -67,6 +88,11 @@ class Entity extends GameObject {
         if (direction === "down") return this.posY += this.speed;
     }
 
+    /**
+     * Checks if this entity is colliding with another object.
+     * @param {Object} obj Object to check collision against.
+     * @returns {boolean} True if colliding, false otherwise.
+     */
     isColliding(obj) {
         return (
             this.posX + this.collisionBox.x < obj.posX + obj.collisionBox.x + obj.collisionBox.w &&
@@ -76,6 +102,9 @@ class Entity extends GameObject {
         );
     }
 
+    /**
+     * Handles collision state and cooldown.
+     */
     onCollision() {
         if (this.onColliding) return;
         this.onColliding = true;
@@ -84,6 +113,10 @@ class Entity extends GameObject {
         }, 1000);
     }
 
+    /**
+     * Handles getting hit and damage cooldown.
+     * @param {number} dmg Amount of damage to take.
+     */
     getHit(dmg) {
         if (this.isHit) return;
         this.isHit = true;
@@ -93,10 +126,18 @@ class Entity extends GameObject {
         }, 1000);
     }
 
+    /**
+     * Reduces entity life by damage amount.
+     * @param {number} dmg Amount of damage.
+     */
     takeDmg(dmg) {        
         this.life = Math.max(0, this.life - dmg);
     }
     
+    /**
+     * Checks if the entity's life has reached zero.
+     * @returns {boolean} True if dead, false otherwise.
+     */
     isDeath() {
         return this.life === 0;
     }

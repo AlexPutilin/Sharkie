@@ -8,6 +8,10 @@ class Poisonbar extends Statusbar {
         'assets/imgs/bars/poison/bar_poison_100.png',
     ];
 
+    /**
+     * Creates a new Poisonbar instance at a fixed position in the HUD.
+     * Loads the initial image based on the current status index.
+     */
     constructor() {
         super(20, 50, 220, 60);
         this.loadImg(this.statusBarImgs[this.statusBarIndex]);

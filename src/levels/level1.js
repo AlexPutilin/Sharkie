@@ -1,6 +1,14 @@
 let level1;
 
-
+/**
+ * Initializes the first game level (level1) with backgrounds, enemies, coins, and poison spawners.
+ * Sets up a new {@link Level} instance and assigns it to the global `level1` variable.
+ *
+ * Backgrounds are layered and positioned to create a scrolling environment,
+ * enemies (jellyfish, pufferfish) are placed at fixed positions,
+ * collectible coins are distributed, and poison spawners are configured.
+ *
+ */
 function initLevel() {
     level1 = new Level(
         [

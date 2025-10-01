@@ -93,6 +93,9 @@ class Sharkie extends Entity {
     bossAreaStart = 4320;
     bossAreaEnd = 5400;
 
+    /**
+     * Represents the player character (Sharkie) with movement, attacks, and animations.
+     */
     constructor(world) {
         super(0, 200, 200, 200);
         this.world = world
@@ -113,6 +116,10 @@ class Sharkie extends Entity {
         this.animationLoop();
     }
 
+    /**
+     * Main loop for handling inputs, audio, and animations.
+     * @param {number} [timestamp=0] - Current time from requestAnimationFrame.
+     */
     animationLoop(timestamp = 0) {
         this.handleInputs();
         this.handleAudio();
@@ -123,6 +130,9 @@ class Sharkie extends Entity {
         requestAnimationFrame((t) => this.animationLoop(t));
     }
 
+    /**
+     * Processes player input for movement and attacks.
+     */
     handleInputs() {
         if (this.world.controller.kYPressedOnce && !this.isDeath() && !this.isAttacking) {
             this.world.controller.kYPressedOnce = false;
@@ -141,6 +151,9 @@ class Sharkie extends Entity {
         if (this.world.controller.kDown && !this.isDeath() && this.posY < 570) this.move("down");
     }
 
+    /**
+     * Handles movement restrictions inside the boss area.
+     */
     movementOnBossArea() {
         if (this.world.controller.kRight && !this.isDeath() && this.posX < this.bossAreaEnd - 150) {
             this.flippedImg = false;
@@ -153,6 +166,9 @@ class Sharkie extends Entity {
         this.world.targetCameraX = -((this.bossAreaStart + this.bossAreaEnd) / 2) + (this.world.canvas.width / 2);
     }
 
+    /**
+     * Handles normal movement when outside the boss area.
+     */
     movementDefault() {
         if (this.world.controller.kRight && !this.isDeath() && this.posX < 5300) {
             this.flippedImg = false;
@@ -165,6 +181,9 @@ class Sharkie extends Entity {
         this.world.targetCameraX = -this.posX + 100;
     }
 
+    /**
+     * Updates the animation based on player state (idle, swim, attack, hit, or death).
+     */
     handleAnimation() {
         if (this.isDeath()) this.playAnimation(this.deadShockedSprites, false);
         else if (this.isBubbleAttacking) {
@@ -181,6 +200,9 @@ class Sharkie extends Entity {
         else this.playAnimation(this.idleSprites);
     }
 
+    /**
+     * Plays audio effects based on the current player state (attack or damage).
+     */
     handleAudio() {
         if (this.isBubbleAttacking) {
             this.playAudioFx(this.bubbleAudio);
@@ -191,12 +213,19 @@ class Sharkie extends Entity {
         }
     }
 
+    /**
+     * Inflicts damage on the player and updates the health bar.
+     * @param {number} dmg - The amount of damage received.
+     */
     getHit(dmg) {
         if (this.isHit) return;
         super.getHit(dmg);
         this.world.healthbar.reduceStatusbar();
     }
 
+    /**
+     * Updates the poison buff state based on the poison bar level.
+     */
     calcPoisonAmount() {
         if (this.world.poisonbar.statusBarIndex > 0) {
             this.poisonBuff = true;
@@ -205,11 +234,17 @@ class Sharkie extends Entity {
         }
     }
 
+    /**
+     * Reduces the poison bar after firing a poisoned projectile.
+     */
     reducePoisonbar() {
         this.world.poisonbar.increaseStatusbar();
         this.calcPoisonAmount();
     }
 
+    /**
+     * Spawns a projectile (bubble or poisoned bubble) in the game world.
+     */
     spawnProjectile() {
         if (!this.isProjectileSpawned) {
             this.isProjectileSpawned = true;

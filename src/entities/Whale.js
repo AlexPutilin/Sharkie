@@ -56,6 +56,9 @@ class Whale extends Entity {
     bossAreaEnd = 5500;
     world;
 
+    /**
+     * Represents the whale boss enemy with intro, movement, and attack behavior.
+     */
     constructor(world) {
         super(5080, 0, 300, 300);
         this.world = world;
@@ -64,7 +67,6 @@ class Whale extends Entity {
         this.collisionBox = {x: -20 , y: 100, w: 300, h: 150};
         this.introAudio = new Audio('assets/audio/audio-whale-intro.mp3');
         this.hurtAudio = new Audio('assets/audio/audio-whale-hurt.mp3');
-        // this.addSounds([introAudio, hurtAudio]);
         registerSound([this.introAudio, this.hurtAudio]);
         this.loadSpriteCache(this.introSprites);
         this.loadSpriteCache(this.swimSprites);
@@ -74,6 +76,10 @@ class Whale extends Entity {
         this.animationLoop();
     }
 
+    /**
+     * Main loop handling activation, movement, and animation of the boss.
+     * @param {number} [timestamp=0] - Current time from requestAnimationFrame.
+     */
     animationLoop(timestamp = 0) {
         this.checkBossArea();
         if (this.isActive) {
@@ -86,6 +92,9 @@ class Whale extends Entity {
         requestAnimationFrame((t) => this.animationLoop(t));
     }
     
+    /**
+     * Moves the boss horizontally and vertically to follow the player.
+     */
     handleMovement() {
         const player = this.world.player;
         if (player.posX > this.posX) {
@@ -100,6 +109,14 @@ class Whale extends Entity {
         else if (player.posY < this.posY + 50) this.move("up");
     }
 
+    /**
+     * Handles boss animations depending on state:
+     * - Intro (once) when activated,
+     * - Attack when colliding,
+     * - Hit when damaged,
+     * - Death when life reaches zero,
+     * - Swim otherwise.
+     */
     handleAnimation() {
         if (!this.isIntroDone && this.isActive) {
             this.playAudioFx(this.introAudio);
@@ -111,6 +128,11 @@ class Whale extends Entity {
         else this.playAnimation(this.swimSprites);
     }
 
+    /**
+     * Inflicts damage to the boss only when hit by poisoned projectiles.
+     * @param {number} dmg - The damage amount.
+     * @param {boolean} poisoned - Whether the attack was poisoned.
+     */
     getHit(dmg, poisoned) {
         if (poisoned) {
             super.getHit(dmg);
@@ -118,6 +140,9 @@ class Whale extends Entity {
         }
     }
 
+    /**
+     * Activates the boss when the player enters the boss area.
+     */
     checkBossArea() {
         const player = this.world.player;
         if (player.posX >= this.bossAreaStart && player.posX <= this.bossAreaEnd) {
