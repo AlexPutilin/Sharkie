@@ -7,6 +7,7 @@ class Entity extends GameObject {
     destroyClass = false;
     onColliding = false;
     isHit = false;
+    isAudioPlaying = false;
 
     constructor(...args) {
         super(...args);
@@ -39,6 +40,23 @@ class Entity extends GameObject {
         if (this.currentSprites !== sprites) {
             this.currentSprites = sprites;
             this.currentSpriteIndex = 0;
+        }
+    }
+
+    playAudioFx(audio) {
+        if (this.isAudioPlaying) return;
+        this.isAudioPlaying = true;
+        console.log("playing");
+        audio.currentTime = 0;
+        audio.play();
+        setTimeout(() => {
+            this.isAudioPlaying = false;
+        }, 1000);
+    }
+
+    addSounds(audio) {
+        if (typeof registerSound === 'function') {
+            registerSound(audio);
         }
     }
 

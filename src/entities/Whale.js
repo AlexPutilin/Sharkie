@@ -62,6 +62,10 @@ class Whale extends Entity {
         this.speed = 0.5;
         this.life = 300;
         this.collisionBox = {x: -20 , y: 100, w: 300, h: 150};
+        this.introAudio = new Audio('assets/audio/audio-whale-intro.mp3');
+        this.hurtAudio = new Audio('assets/audio/audio-whale-hurt.mp3');
+        // this.addSounds([introAudio, hurtAudio]);
+        registerSound([this.introAudio, this.hurtAudio]);
         this.loadSpriteCache(this.introSprites);
         this.loadSpriteCache(this.swimSprites);
         this.loadSpriteCache(this.hitSprites);
@@ -97,7 +101,10 @@ class Whale extends Entity {
     }
 
     handleAnimation() {
-        if (!this.isIntroDone && this.isActive) this.playAnimation(this.introSprites, false, () => this.isIntroDone = true);
+        if (!this.isIntroDone && this.isActive) {
+            this.playAudioFx(this.introAudio);
+            this.playAnimation(this.introSprites, false, () => this.isIntroDone = true);
+        }
         else if (this.onColliding) this.playAnimation(this.attackSprites);
         else if (this.isHit) this.playAnimation(this.hitSprites);
         else if (this.isDeath()) this.playAnimation(this.deathSprites, false, () => this.destroyClass = true);
@@ -105,7 +112,10 @@ class Whale extends Entity {
     }
 
     getHit(dmg, poisoned) {
-        if (poisoned) super.getHit(dmg);
+        if (poisoned) {
+            super.getHit(dmg);
+            this.playAudioFx(this.hurtAudio);
+        }
     }
 
     checkBossArea() {

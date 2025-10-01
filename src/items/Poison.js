@@ -10,8 +10,9 @@ class Poison extends Pickable {
             'assets/sprites/poison/poison_7.png',
             'assets/sprites/poison/poison_8.png',
         ]);
+        this.pickUpAudio = new Audio('assets/audio/audio-collect-item.mp3');
+        registerSound([this.pickUpAudio]);
         this.update();
-
     }
 
     update() {

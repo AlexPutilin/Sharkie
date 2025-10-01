@@ -2,6 +2,10 @@ let canvas;
 let controller;
 let world;
 let intervalIds = [];
+let soundEffects = [];
+let soundsMuted = false;
+const backgroundAudio = new Audio('assets/audio/audio-underwater-ambient.mp3');
+registerSound([backgroundAudio]);
 
 
 function initGame() {
@@ -22,18 +26,32 @@ function startGame() {
     initControls();
     initLevel();
     world = new World(canvas, controller);
+    startBackgroundAudio();
 }
 
 
 function stopGame() {
     if (!world) return;
     stopIntervals();
+    stopBackgroundAudio();
     world.enemies = [];
     world.coins = [];
     world = null;
     controller = null;
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+
+function startBackgroundAudio() {
+    backgroundAudio.currentTime = 0;
+    backgroundAudio.loop = true;
+    backgroundAudio.play();
+}
+
+
+function stopBackgroundAudio() {
+    backgroundAudio.pause();
 }
 
 
@@ -173,4 +191,35 @@ function setStoppableInterval(fn, ms) {
 
 function stopIntervals() {
     intervalIds.forEach(clearInterval);
+}
+
+
+function registerSound(audios = []) {
+    audios.forEach(audio => {
+        soundEffects.push(audio);
+        audio.volume = soundsMuted ? 0 : 1;
+    });
+}
+
+
+function toggleSounds(btn) {
+    if (soundsMuted) {
+        btn.classList.remove('btn-mute-active');
+        soundEffects.forEach(audio => audio.volume = 1);
+        soundsMuted = false;
+    } else {
+        btn.classList.add('btn-mute-active');
+        soundEffects.forEach(audio => audio.volume = 0);
+        soundsMuted = true;
+    }
+}
+
+
+function muteSounds() {
+    soundEffects.forEach(audio => audio.volume = 0);
+}
+
+
+function unmuteSounds() {
+    soundEffects.forEach(audio => audio.volume = 1);
 }

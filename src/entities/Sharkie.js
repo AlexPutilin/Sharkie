@@ -98,6 +98,10 @@ class Sharkie extends Entity {
         this.world = world
         this.speed = 4;
         this.collisionBox = {x: 40 , y: 100, w: 120, h: 60};
+        this.slapAudio = new Audio('assets/audio/audio-slash.mp3');
+        this.bubbleAudio = new Audio('assets/audio/audio-bubble.mp3');
+        this.hurtAudio = new Audio('assets/audio/audio-hurt.mp3');
+        registerSound([this.slapAudio, this.bubbleAudio, this.hurtAudio]);
         this.loadSpriteCache(this.idleSprites);
         this.loadSpriteCache(this.swimSprites);
         this.loadSpriteCache(this.attackBubbleSprites);
@@ -111,6 +115,7 @@ class Sharkie extends Entity {
 
     animationLoop(timestamp = 0) {
         this.handleInputs();
+        this.handleAudio();
         if(timestamp - this.lastAnimationTime > this.animationInterval) {
             this.handleAnimation();
             this.lastAnimationTime = timestamp;
@@ -174,6 +179,16 @@ class Sharkie extends Entity {
         else if (this.world.controller.kRight || this.world.controller.kLeft) this.playAnimation(this.swimSprites);
         else if (this.world.controller.kUp || this.world.controller.kDown) this.playAnimation(this.swimSprites);
         else this.playAnimation(this.idleSprites);
+    }
+
+    handleAudio() {
+        if (this.isBubbleAttacking) {
+            this.playAudioFx(this.bubbleAudio);
+        } else if (this.isSlapAttacking) {
+            this.playAudioFx(this.slapAudio);
+        } else if (this.isHit) {
+            this.playAudioFx(this.hurtAudio);
+        }
     }
 
     getHit(dmg) {

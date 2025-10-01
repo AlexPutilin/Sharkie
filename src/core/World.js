@@ -71,6 +71,7 @@ class World {
     checkPlayerIsCollidingCoins() {
         this.coins.forEach((coin, index) => {
             if (this.player.isColliding(coin)) {
+                coin.playAudioFx(coin.pickUpAudio);
                 this.coins.splice(index, 1);
                 this.coinbar.reduceStatusbar();
             }
@@ -80,6 +81,7 @@ class World {
     checkPlayerIsCollidingPoisons() {
         this.poisons.forEach((poison, index) => {
             if (this.player.isColliding(poison)) {
+                poison.playAudioFx(poison.pickUpAudio);
                 this.poisons.splice(index, 1);
                 this.poisonbar.reduceStatusbar();
                 this.player.calcPoisonAmount();

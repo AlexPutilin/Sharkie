@@ -243,6 +243,7 @@ footer {
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    gap: 8px;
 }
 
 .hud-down-container {
@@ -270,6 +271,17 @@ footer {
 
 .menu-btn:hover {
     background-color: #4dbfd3;
+}
+
+.btn-mute {
+    background-image: url('/assets/icons/icon-sound.png');
+    background-position: center;
+}
+
+.btn-mute-active {
+    background-color: #20525bb5;
+    background-image: url('/assets/icons/icon-sound-mute.png');
+    background-position: center;
 }
 
 @media only screen and (max-width: 1080px) {

@@ -6,5 +6,7 @@ class Coin extends Pickable {
             'assets/sprites/coin/coin_3.png',
             'assets/sprites/coin/coin_4.png',
         ]);
+        this.pickUpAudio = new Audio('assets/audio/audio-collect-coin.mp3');
+        registerSound([this.pickUpAudio]);
     }
 }
