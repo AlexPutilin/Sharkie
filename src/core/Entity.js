@@ -68,7 +68,6 @@ class Entity extends GameObject {
     playAudioFx(audio) {
         if (this.isAudioPlaying) return;
         this.isAudioPlaying = true;
-        console.log("playing");
         audio.currentTime = 0;
         audio.play();
         setTimeout(() => {

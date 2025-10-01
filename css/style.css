@@ -274,13 +274,13 @@ footer {
 }
 
 .btn-mute {
-    background-image: url('/assets/icons/icon-sound.png');
+    background-image: url('../assets/icons/icon-sound.png');
     background-position: center;
 }
 
 .btn-mute-active {
     background-color: #20525bb5;
-    background-image: url('/assets/icons/icon-sound-mute.png');
+    background-image: url('../assets/icons/icon-sound-mute.png');
     background-position: center;
 }
 
